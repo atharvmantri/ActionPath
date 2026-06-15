@@ -45,7 +45,21 @@ export default function LoadWarning({ warning, collisionDays = [], suggestion }:
       </button>
 
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-        <span style={{ fontSize: '1.5rem', lineHeight: 1 }}>⚠️</span>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--accent-amber)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ flexShrink: 0, marginTop: '2px' }}
+        >
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
         <div>
           <h4 style={{
             color: 'var(--accent-amber)',
@@ -74,7 +88,7 @@ export default function LoadWarning({ warning, collisionDays = [], suggestion }:
               marginTop: '8px',
               fontStyle: 'italic',
             }}>
-              💡 {suggestion}
+              <span style={{ fontWeight: 700 }}>Suggestion:</span> {suggestion}
             </p>
           )}
         </div>

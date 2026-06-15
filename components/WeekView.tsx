@@ -118,11 +118,12 @@ export default function WeekView({ tasks, collisionDays, dailyBudgets }: WeekVie
                   color: 'var(--accent-rose)',
                   marginBottom: '8px',
                   padding: '4px 8px',
-                  background: 'rgba(244, 63, 94, 0.08)',
+                  background: 'rgba(255, 59, 48, 0.08)',
                   borderRadius: 'var(--radius-sm)',
                   textAlign: 'center',
+                  fontWeight: 600,
                 }}>
-                  🔴 Overloaded
+                  Overloaded
                 </div>
               )}
               {isCollision && !isOverloaded && (
@@ -131,11 +132,12 @@ export default function WeekView({ tasks, collisionDays, dailyBudgets }: WeekVie
                   color: 'var(--accent-amber)',
                   marginBottom: '8px',
                   padding: '4px 8px',
-                  background: 'rgba(245, 158, 11, 0.08)',
+                  background: 'rgba(255, 149, 0, 0.08)',
                   borderRadius: 'var(--radius-sm)',
                   textAlign: 'center',
+                  fontWeight: 600,
                 }}>
-                  🟡 Collision
+                  Collision
                 </div>
               )}
 
@@ -175,12 +177,16 @@ export default function WeekView({ tasks, collisionDays, dailyBudgets }: WeekVie
                     </div>
                     <div style={{
                       display: 'flex',
+                      alignItems: 'center',
                       gap: '6px',
                       marginTop: '4px',
                       color: 'var(--text-muted)',
                       fontSize: '0.6rem',
                     }}>
-                      <span>⏱ {formatMinutes(task.est_mins)}</span>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                        {formatMinutes(task.est_mins)}
+                      </span>
                       {task.subject && <span style={{ color: getSubjectColor(task.subject) }}>● {task.subject}</span>}
                     </div>
                   </div>
@@ -193,7 +199,7 @@ export default function WeekView({ tasks, collisionDays, dailyBudgets }: WeekVie
                     color: 'var(--text-muted)',
                     fontSize: '0.7rem',
                   }}>
-                    {day.isToday ? '🎉 Free day!' : 'No tasks'}
+                    {day.isToday ? 'Free day!' : 'No tasks'}
                   </div>
                 )}
               </div>
@@ -210,8 +216,12 @@ export default function WeekView({ tasks, collisionDays, dailyBudgets }: WeekVie
             fontWeight: 600,
             color: 'var(--text-muted)',
             marginBottom: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
           }}>
-            📌 No specific date
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+            No specific date
           </h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {unscheduled.map((task) => (

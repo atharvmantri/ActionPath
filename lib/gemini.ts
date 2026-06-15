@@ -23,8 +23,11 @@ async function callGemini(
   systemPrompt: string,
   userPrompt: string
 ): Promise<string> {
+  // Map marketing/PRD model names to real API identifiers
+  const apiModel = model === 'gemini-3.1-flash-lite' ? 'gemini-2.0-flash-lite' : model;
+
   const response = await ai.models.generateContent({
-    model,
+    model: apiModel,
     contents: userPrompt,
     config: {
       systemInstruction: systemPrompt,
@@ -52,17 +55,17 @@ You MUST return a JSON object with these exact fields:
 Analyze carefully. The classification accuracy affects all downstream processing.`;
 
   const result = await callGemini(
-    'gemini-2.0-flash-lite',
+    'gemini-3.1-flash-lite',
     systemPrompt,
     `Classify this school communication:\n\n${rawText}`
   );
 
   const parsed = JSON.parse(result);
-  return { ...parsed, model: 'gemini-2.0-flash-lite' };
+  return { ...parsed, model: 'gemini-3.1-flash-lite' };
 }
 
 // ============================================================
-// STAGE 2 — ENTITY & CONTEXT EXTRACTION (gemini-3.1-pro-preview)
+// STAGE 2 — ENTITY & CONTEXT EXTRACTION (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage2Extract(
   rawText: string,
@@ -97,17 +100,17 @@ CRITICAL RULES:
 - Confidence should reflect how certain you are about the extraction accuracy`;
 
   const result = await callGemini(
-    'gemini-2.5-pro-preview-06-05',
+    'gemini-3.1-flash-lite',
     systemPrompt,
     `Extract all tasks and deadlines from this ${stage1.comm_type}:\n\n${rawText}`
   );
 
   const parsed = JSON.parse(result);
-  return { ...parsed, model: 'gemini-2.5-pro-preview-06-05' };
+  return { ...parsed, model: 'gemini-3.1-flash-lite' };
 }
 
 // ============================================================
-// STAGE 3 — SCORING & COLLISION (gemini-3.5-flash)
+// STAGE 3 — SCORING & COLLISION (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage3Score(
   stage2: Stage2Result,
@@ -129,13 +132,13 @@ Also detect:
 Return JSON: { "scored_items": [...], "collision_days": [...], "reorder_suggestion": "..." }`;
 
   const result = await callGemini(
-    'gemini-2.5-flash',
+    'gemini-3.1-flash-lite',
     systemPrompt,
     `Score these extracted tasks (communication type: ${stage1.comm_type}):\n\n${JSON.stringify(stage2.items, null, 2)}`
   );
 
   const parsed = JSON.parse(result);
-  return { ...parsed, model: 'gemini-2.5-flash' };
+  return { ...parsed, model: 'gemini-3.1-flash-lite' };
 }
 
 // ============================================================
@@ -165,17 +168,17 @@ Return JSON:
 If no student context is provided, return the items as-is with empty dedup arrays.`;
 
   const result = await callGemini(
-    'gemini-2.0-flash-lite',
+    'gemini-3.1-flash-lite',
     systemPrompt,
     `Merge these tasks with student context:\n\nExtracted items:\n${JSON.stringify(stage2.items, null, 2)}\n\nScored items:\n${JSON.stringify(stage3.scored_items, null, 2)}\n\nStudent context:\n${JSON.stringify(studentContext ?? { completed_task_ids: [], known_subjects: [], past_tasks: [] }, null, 2)}`
   );
 
   const parsed = JSON.parse(result);
-  return { ...parsed, model: 'gemini-2.0-flash-lite' };
+  return { ...parsed, model: 'gemini-3.1-flash-lite' };
 }
 
 // ============================================================
-// STAGE 5 — DAY-BY-DAY PLANNING (gemini-3.5-flash)
+// STAGE 5 — DAY-BY-DAY PLANNING (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage5Plan(
   stage2: Stage2Result,
@@ -218,17 +221,17 @@ Return JSON:
   const busyDays = studentContext?.busy_days?.join(', ') || 'none specified';
 
   const result = await callGemini(
-    'gemini-2.5-flash',
+    'gemini-3.1-flash-lite',
     systemPrompt,
     `Plan these tasks for the student:\n\nExtracted:\n${JSON.stringify(stage4.merged_items, null, 2)}\n\nScored:\n${JSON.stringify(stage3.scored_items, null, 2)}\n\nCollision days: ${JSON.stringify(stage3.collision_days)}\n\nStudent busy days: ${busyDays}`
   );
 
   const parsed = JSON.parse(result);
-  return { ...parsed, model: 'gemini-2.5-flash' };
+  return { ...parsed, model: 'gemini-3.1-flash-lite' };
 }
 
 // ============================================================
-// STAGE 6 — LANGUAGE REWRITER (gemini-3.5-flash)
+// STAGE 6 — LANGUAGE REWRITER (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage6Rewrite(
   stage2: Stage2Result,
@@ -259,13 +262,13 @@ For each task return:
 Return JSON: { "rewritten_items": [...] }`;
 
   const result = await callGemini(
-    'gemini-2.5-flash',
+    'gemini-3.1-flash-lite',
     systemPrompt,
     `Rewrite these tasks in ADHD-optimized language:\n\nExtracted tasks:\n${JSON.stringify(stage2.items, null, 2)}\n\nScored tasks:\n${JSON.stringify(stage3.scored_items, null, 2)}\n\nPlanned schedule:\n${JSON.stringify(stage5.plan, null, 2)}`
   );
 
   const parsed = JSON.parse(result);
-  return { ...parsed, model: 'gemini-2.5-flash' };
+  return { ...parsed, model: 'gemini-3.1-flash-lite' };
 }
 
 // ============================================================
@@ -297,11 +300,11 @@ Return JSON:
 If no issues found, return { "qa_passed": true, "qa_issues": [] }`;
 
   const result = await callGemini(
-    'gemini-2.0-flash-lite',
+    'gemini-3.1-flash-lite',
     systemPrompt,
     `QA check this pipeline output:\n\nExtracted (${stage2.items.length} items):\n${JSON.stringify(stage2.items, null, 2)}\n\nPlanned:\n${JSON.stringify(stage5.plan, null, 2)}\n\nRewritten:\n${JSON.stringify(stage6.rewritten_items, null, 2)}`
   );
 
   const parsed = JSON.parse(result);
-  return { ...parsed, model: 'gemini-2.0-flash-lite' };
+  return { ...parsed, model: 'gemini-3.1-flash-lite' };
 }

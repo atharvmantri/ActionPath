@@ -192,10 +192,10 @@ export interface StageInfo {
 
 export const PIPELINE_STAGES: Omit<StageInfo, 'status' | 'duration_ms'>[] = [
   { stage: 1, name: 'Intake Classifier', model: 'gemini-3.1-flash-lite', description: 'Classifying communication type & cognitive load' },
-  { stage: 2, name: 'Entity Extraction', model: 'gemini-3.1-pro-preview', description: 'Extracting tasks, deadlines & source sentences' },
-  { stage: 3, name: 'Scoring & Collision', model: 'gemini-3.5-flash', description: 'Scoring urgency, effort & detecting collisions' },
+  { stage: 2, name: 'Entity Extraction', model: 'gemini-3.1-flash-lite', description: 'Extracting tasks, deadlines & source sentences' },
+  { stage: 3, name: 'Scoring & Collision', model: 'gemini-3.1-flash-lite', description: 'Scoring urgency, effort & detecting collisions' },
   { stage: 4, name: 'Context Fusion', model: 'gemini-3.1-flash-lite', description: 'Merging with student context & deduplicating' },
-  { stage: 5, name: 'Day-by-Day Planning', model: 'gemini-3.5-flash', description: 'Generating daily action plan with time budgets' },
-  { stage: 6, name: 'Language Rewriter', model: 'gemini-3.5-flash', description: 'Rewriting in plain, ADHD-optimized language' },
+  { stage: 5, name: 'Day-by-Day Planning', model: 'gemini-3.1-flash-lite', description: 'Generating daily action plan with time budgets' },
+  { stage: 6, name: 'Language Rewriter', model: 'gemini-3.1-flash-lite', description: 'Rewriting in plain, ADHD-optimized language' },
   { stage: 7, name: 'QA Agent', model: 'gemini-3.1-flash-lite', description: 'Validating pipeline output quality' },
 ];

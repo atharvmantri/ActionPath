@@ -36,10 +36,36 @@ export default function PipelineProgress({ currentStage, stageTimings = {}, erro
         gap: '8px',
       }}>
         <span style={{
-          display: 'inline-block',
-          animation: currentStage > 0 && currentStage <= 7 ? 'spin-slow 2s linear infinite' : 'none',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}>
-          {currentStage > 7 ? '✅' : '⚡'}
+          {currentStage > 7 ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          ) : (
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--accent-blue)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ animation: 'spin-slow 1.5s linear infinite' }}
+            >
+              <line x1="12" y1="2" x2="12" y2="6" />
+              <line x1="12" y1="18" x2="12" y2="22" />
+              <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+              <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+              <line x1="2" y1="12" x2="6" y2="12" />
+              <line x1="18" y1="12" x2="22" y2="12" />
+              <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+              <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+            </svg>
+          )}
         </span>
         {currentStage > 7
           ? 'Pipeline Complete'
@@ -129,13 +155,21 @@ export default function PipelineProgress({ currentStage, stageTimings = {}, erro
         <div style={{
           marginTop: '16px',
           padding: '12px',
-          background: 'rgba(244, 63, 94, 0.1)',
-          border: '1px solid rgba(244, 63, 94, 0.2)',
+          background: 'rgba(255, 59, 48, 0.1)',
+          border: '1px solid rgba(255, 59, 48, 0.2)',
           borderRadius: 'var(--radius-sm)',
           fontSize: '0.8rem',
           color: 'var(--accent-rose)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
         }}>
-          ❌ {error}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="15" y1="9" x2="9" y2="15" />
+            <line x1="9" y1="9" x2="15" y2="15" />
+          </svg>
+          <span>{error}</span>
         </div>
       )}
     </div>

@@ -11,24 +11,48 @@ export default function OnboardingDisclaimer({ onDismiss }: OnboardingDisclaimer
 
   const steps = [
     {
-      emoji: '🎯',
       title: 'Welcome to ActionPath',
       text: 'ActionPath helps you find action items buried in school emails, LMS posts, and newsletters. Paste any school communication and get a clear, actionable checklist in seconds.',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      )
     },
     {
-      emoji: '🤖',
       title: '7 AI Agents Working For You',
       text: 'Your email passes through 7 specialized AI agents: classify, extract, score, fuse, plan, rewrite, and QA. Each one has a specific job to make sure nothing is missed.',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+          <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+          <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+          <line x1="6" y1="6" x2="6.01" y2="6" />
+          <line x1="6" y1="18" x2="6.01" y2="18" />
+        </svg>
+      )
     },
     {
-      emoji: '⚠️',
       title: 'Important: Always Verify',
       text: 'ActionPath helps you find action items, but AI can make mistakes. Always verify important deadlines directly with your teacher or school. AI recommends — you decide and act.',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-amber)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      )
     },
     {
-      emoji: '🔒',
       title: 'Your Privacy Matters',
       text: 'No email content is ever stored on our servers. Everything is processed per-request and only your task completion status is saved locally in your browser.',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      )
     },
   ];
 
@@ -58,9 +82,9 @@ export default function OnboardingDisclaimer({ onDismiss }: OnboardingDisclaimer
           className="animate-fade-in"
           style={{ marginBottom: '32px' }}
         >
-          <span style={{ fontSize: '3rem', display: 'block', marginBottom: '16px' }}>
-            {steps[step].emoji}
-          </span>
+          <div style={{ display: 'block', marginBottom: '20px' }}>
+            {steps[step].icon}
+          </div>
           <h2 style={{
             fontSize: '1.25rem',
             fontWeight: 700,
@@ -105,12 +129,12 @@ export default function OnboardingDisclaimer({ onDismiss }: OnboardingDisclaimer
             <>
               <button onClick={onDismiss} className="btn-ghost">Skip</button>
               <button onClick={() => setStep(step + 1)} className="btn-primary">
-                <span>Next →</span>
+                <span>Next</span>
               </button>
             </>
           ) : (
             <button onClick={onDismiss} className="btn-primary" style={{ padding: '12px 40px' }}>
-              <span>Get Started 🚀</span>
+              <span>Get Started</span>
             </button>
           )}
         </div>

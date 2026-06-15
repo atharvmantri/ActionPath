@@ -71,8 +71,25 @@ export default function FocusTimer({ taskName, onComplete, onCancel }: FocusTime
             fontSize: '0.75rem',
             fontWeight: 600,
             color: 'var(--accent-cyan)',
+            display: 'flex',
+            alignItems: 'center',
           }}>
-            🎯 Focus Mode
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ marginRight: '4px' }}
+            >
+              <circle cx="12" cy="12" r="10" />
+              <circle cx="12" cy="12" r="6" />
+              <circle cx="12" cy="12" r="2" />
+            </svg>
+            Focus Mode
           </span>
           <button
             onClick={onCancel}
@@ -137,14 +154,14 @@ export default function FocusTimer({ taskName, onComplete, onCancel }: FocusTime
             className="btn-secondary"
             style={{ padding: '8px 20px', fontSize: '0.8rem' }}
           >
-            {isRunning ? '⏸ Pause' : '▶ Resume'}
+            {isRunning ? 'Pause' : 'Resume'}
           </button>
           <button
             onClick={handleComplete}
             className="btn-primary"
             style={{ padding: '8px 20px', fontSize: '0.8rem' }}
           >
-            <span>✓ Done</span>
+            <span>Done</span>
           </button>
         </div>
       </div>

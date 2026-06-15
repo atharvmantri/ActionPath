@@ -36,13 +36,22 @@ export default function StartCue({ cue, expanded = false }: StartCueProps) {
         }}
         aria-label="Toggle start cue"
       >
-        <span style={{
-          display: 'inline-block',
-          transition: 'transform 0.2s ease',
-          transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
-        }}>
-          ▶
-        </span>
+        <svg
+          width="8"
+          height="8"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            transition: 'transform 0.2s ease',
+            transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+          }}
+        >
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
         <span>Start here</span>
       </button>
 
@@ -60,7 +69,7 @@ export default function StartCue({ cue, expanded = false }: StartCueProps) {
             lineHeight: 1.5,
           }}
         >
-          <span style={{ marginRight: '6px' }}>🎯</span>
+          <span style={{ fontWeight: 700, color: 'var(--accent-cyan)', marginRight: '6px' }}>First Action:</span>
           {cue}
         </div>
       )}

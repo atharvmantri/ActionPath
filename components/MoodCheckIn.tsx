@@ -8,11 +8,11 @@ interface MoodCheckInProps {
 }
 
 const MOODS = [
-  { value: 1, emoji: '😫', label: 'Overwhelmed', taskLimit: 1 },
-  { value: 2, emoji: '😔', label: 'Low energy', taskLimit: 2 },
-  { value: 3, emoji: '😐', label: 'Okay', taskLimit: 3 },
-  { value: 4, emoji: '🙂', label: 'Good', taskLimit: 5 },
-  { value: 5, emoji: '💪', label: 'Energized', taskLimit: 999 },
+  { value: 1, label: 'Overwhelmed', taskLimit: 1, color: 'var(--accent-rose)' },
+  { value: 2, label: 'Low energy', taskLimit: 2, color: 'var(--accent-amber)' },
+  { value: 3, label: 'Okay', taskLimit: 3, color: 'var(--text-muted)' },
+  { value: 4, label: 'Good', taskLimit: 5, color: 'var(--accent-blue)' },
+  { value: 5, label: 'Energized', taskLimit: 999, color: 'var(--accent-emerald)' },
 ];
 
 export default function MoodCheckIn({ onMoodSelect, selectedMood }: MoodCheckInProps) {
@@ -50,16 +50,23 @@ export default function MoodCheckIn({ onMoodSelect, selectedMood }: MoodCheckInP
               padding: '10px 14px',
               borderRadius: 'var(--radius-md)',
               border: `2px solid ${selectedMood === mood.value ? 'var(--accent-blue)' : 'var(--border-subtle)'}`,
-              background: selectedMood === mood.value ? 'rgba(59, 130, 246, 0.1)' : 'var(--bg-glass)',
+              background: selectedMood === mood.value ? 'rgba(0, 113, 227, 0.05)' : 'var(--bg-glass)',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              transform: selectedMood === mood.value ? 'scale(1.05)' : 'scale(1)',
+              transform: selectedMood === mood.value ? 'scale(1.02)' : 'scale(1)',
+              flex: 1,
             }}
             aria-label={`Mood: ${mood.label}`}
           >
-            <span style={{ fontSize: '1.5rem' }}>{mood.emoji}</span>
             <span style={{
-              fontSize: '0.6rem',
+              width: '12px',
+              height: '12px',
+              borderRadius: '50%',
+              background: mood.color,
+              marginBottom: '6px',
+            }} />
+            <span style={{
+              fontSize: '0.65rem',
               color: selectedMood === mood.value ? 'var(--accent-blue)' : 'var(--text-muted)',
               fontWeight: 500,
             }}>
@@ -77,7 +84,7 @@ export default function MoodCheckIn({ onMoodSelect, selectedMood }: MoodCheckInP
           textAlign: 'center',
           fontStyle: 'italic',
         }}>
-          💙 We&apos;ll keep it light — only the most urgent tasks shown.
+          We&apos;ll keep it light — showing only the most urgent tasks.
         </p>
       )}
     </div>

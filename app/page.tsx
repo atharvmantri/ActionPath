@@ -195,8 +195,7 @@ export default function Home() {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        background: 'rgba(10, 14, 26, 0.85)',
-        backdropFilter: 'blur(20px)',
+        background: 'var(--bg-secondary)',
         borderBottom: '1px solid var(--border-subtle)',
         padding: '12px 24px',
       }}>
@@ -208,13 +207,13 @@ export default function Home() {
           alignItems: 'center',
         }}>
           {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
             onClick={() => { setViewMode('input'); setCurrentStage(0); }}
           >
-            <span style={{ fontSize: '1.5rem' }}>⚡</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-blue)' }}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
             <h1 style={{
-              fontSize: '1.1rem',
-              fontWeight: 800,
+              fontSize: '1.05rem',
+              fontWeight: 700,
               letterSpacing: '-0.02em',
             }}>
               <span className="gradient-text">ActionPath</span>
@@ -234,7 +233,7 @@ export default function Home() {
                     borderColor: viewMode === 'checklist' ? 'var(--accent-blue)' : undefined,
                   }}
                 >
-                  ✅ Checklist
+                  Checklist
                 </button>
                 <button
                   onClick={() => setViewMode('week')}
@@ -245,17 +244,21 @@ export default function Home() {
                     borderColor: viewMode === 'week' ? 'var(--accent-blue)' : undefined,
                   }}
                 >
-                  📅 Week
+                  Week
                 </button>
               </>
             )}
             <button
               onClick={toggleTheme}
               className="btn-ghost"
-              style={{ fontSize: '1rem', padding: '8px' }}
+              style={{ fontSize: '1rem', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {theme === 'dark' ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+              )}
             </button>
           </div>
         </div>
@@ -325,25 +328,81 @@ export default function Home() {
                 gap: '12px',
                 marginTop: '40px',
               }}
-              className="stagger-children"
+                className="stagger-children"
               >
                 {[
-                  { icon: '🔍', title: 'Classify', desc: 'Detect type & cognitive load', model: 'Flash-Lite' },
-                  { icon: '📋', title: 'Extract', desc: 'Find every deadline & task', model: 'Pro' },
-                  { icon: '⚖️', title: 'Score', desc: 'Rank urgency & effort', model: 'Flash' },
-                  { icon: '🔗', title: 'Fuse', desc: 'Merge with your context', model: 'Flash-Lite' },
-                  { icon: '📅', title: 'Plan', desc: 'Build daily action plan', model: 'Flash' },
-                  { icon: '✏️', title: 'Rewrite', desc: 'Plain language + start cues', model: 'Flash' },
-                  { icon: '✅', title: 'QA', desc: 'Validate everything', model: 'Flash-Lite' },
+                  {
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                        <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
+                    ),
+                    title: 'Classify',
+                    desc: 'Detect type & cognitive load'
+                  },
+                  {
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    ),
+                    title: 'Extract',
+                    desc: 'Find every deadline & task'
+                  },
+                  {
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                        <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+                      </svg>
+                    ),
+                    title: 'Score',
+                    desc: 'Rank urgency & effort'
+                  },
+                  {
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                        <path d="M13.828 10.172a4 4 0 0 0-5.656 0l-4 4a4 4 0 1 0 5.656 5.656l1.102-1.101" /><path d="M10.172 13.828a4 4 0 0 0 5.656 0l4-4a4 4 0 1 0-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                    ),
+                    title: 'Fuse',
+                    desc: 'Merge with context'
+                  },
+                  {
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="9" y1="9" x2="15" y2="9" /><line x1="9" y1="13" x2="15" y2="13" /><line x1="9" y1="17" x2="15" y2="17" />
+                      </svg>
+                    ),
+                    title: 'Plan',
+                    desc: 'Build daily action plan'
+                  },
+                  {
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                        <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                      </svg>
+                    ),
+                    title: 'Rewrite',
+                    desc: 'Plain text & start cues'
+                  },
+                  {
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
+                      </svg>
+                    ),
+                    title: 'QA',
+                    desc: 'Validate everything'
+                  },
                 ].map((stage) => (
                   <div
                     key={stage.title}
                     className="glass-card"
                     style={{ padding: '16px', textAlign: 'center' }}
                   >
-                    <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '8px' }}>
+                    <div style={{ display: 'block', marginBottom: '8px', color: 'var(--accent-blue)' }}>
                       {stage.icon}
-                    </span>
+                    </div>
                     <h4 style={{
                       fontSize: '0.8rem',
                       fontWeight: 700,
@@ -355,13 +414,6 @@ export default function Home() {
                     <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
                       {stage.desc}
                     </p>
-                    <span style={{
-                      fontSize: '0.6rem',
-                      color: 'var(--accent-cyan)',
-                      fontFamily: 'monospace',
-                    }}>
-                      {stage.model}
-                    </span>
                   </div>
                 ))}
               </div>
@@ -437,16 +489,18 @@ export default function Home() {
                   </div>
                 </label>
 
-                <button onClick={handleExportCalendar} className="btn-secondary" style={{ fontSize: '0.8rem', padding: '8px 16px' }}>
-                  📅 Export Calendar
+                <button onClick={handleExportCalendar} className="btn-secondary" style={{ fontSize: '0.8rem', padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+                  Export Calendar
                 </button>
 
                 <button
                   onClick={() => { setViewMode('input'); setCurrentStage(0); setPipelineResult(null); setTasks([]); }}
                   className="btn-ghost"
-                  style={{ fontSize: '0.8rem' }}
+                  style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}
                 >
-                  + New
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                  New
                 </button>
               </div>
             </div>
@@ -474,10 +528,26 @@ export default function Home() {
               if (groupTasks.length === 0) return null;
 
               const labels = {
-                today: { icon: '🎯', label: 'Today', accent: 'var(--accent-blue)' },
-                tomorrow: { icon: '📌', label: 'Tomorrow', accent: 'var(--accent-purple)' },
-                this_week: { icon: '📋', label: 'This Week', accent: 'var(--accent-cyan)' },
-                later: { icon: '📦', label: 'Later', accent: 'var(--text-muted)' },
+                today: {
+                  icon: <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-blue)', display: 'inline-block' }} />,
+                  label: 'Today',
+                  accent: 'var(--accent-blue)'
+                },
+                tomorrow: {
+                  icon: <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-purple)', display: 'inline-block' }} />,
+                  label: 'Tomorrow',
+                  accent: 'var(--accent-purple)'
+                },
+                this_week: {
+                  icon: <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-cyan)', display: 'inline-block' }} />,
+                  label: 'This Week',
+                  accent: 'var(--accent-cyan)'
+                },
+                later: {
+                  icon: <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--text-muted)', display: 'inline-block' }} />,
+                  label: 'Later',
+                  accent: 'var(--text-muted)'
+                },
               };
 
               const { icon, label, accent } = labels[group];
@@ -498,9 +568,9 @@ export default function Home() {
                       color: accent,
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '6px',
+                      gap: '8px',
                     }}>
-                      <span>{icon}</span>
+                      {icon}
                       {label}
                       <span style={{
                         fontSize: '0.7rem',
@@ -513,8 +583,9 @@ export default function Home() {
                         {completedCount}/{groupTasks.length}
                       </span>
                     </h3>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                      ⏱ ~{formatMinutes(groupMins)}
+                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                      ~{formatMinutes(groupMins)}
                     </span>
                   </div>
 
@@ -562,7 +633,10 @@ export default function Home() {
               color: 'var(--text-muted)',
               borderTop: '1px solid var(--border-subtle)',
             }}>
-              <p>⚠️ AI recommends. You decide and act. Always verify important deadlines directly.</p>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+                <span>AI recommends. You decide and act. Always verify important deadlines directly.</span>
+              </div>
               <p style={{ marginTop: '4px' }}>No content stored on servers. Privacy by design.</p>
             </div>
           </div>
@@ -582,11 +656,12 @@ export default function Home() {
                 fontWeight: 800,
                 color: 'var(--text-primary)',
               }}>
-                📅 Week View
+                Week View
               </h2>
               <div style={{ display: 'flex', gap: '8px' }}>
-                <button onClick={handleExportCalendar} className="btn-secondary" style={{ fontSize: '0.8rem', padding: '8px 16px' }}>
-                  📅 Export Calendar
+                <button onClick={handleExportCalendar} className="btn-secondary" style={{ fontSize: '0.8rem', padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+                  Export Calendar
                 </button>
               </div>
             </div>
@@ -615,7 +690,10 @@ export default function Home() {
               color: 'var(--text-muted)',
               borderTop: '1px solid var(--border-subtle)',
             }}>
-              <p>⚠️ AI recommends. You decide and act. Always verify important deadlines directly.</p>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+                <span>AI recommends. You decide and act. Always verify important deadlines directly.</span>
+              </div>
             </div>
           </div>
         )}
