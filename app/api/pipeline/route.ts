@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — Pipeline API Route (Server-Side)
+// ActionPath - Pipeline API Route (Server-Side)
 // Orchestrates all 7 Gemini stages sequentially
 // ============================================================
 

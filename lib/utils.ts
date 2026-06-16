@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — Utility helpers for merging pipeline data
+// ActionPath - Utility helpers for merging pipeline data
 // ============================================================
 
 import type {

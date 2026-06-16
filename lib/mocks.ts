@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — High-Fidelity Mock Responses for Demo Emails
+// ActionPath - High-Fidelity Mock Responses for Demo Emails
 // Provides rock-solid fallback for hackathon presentations
 // ============================================================
 
@@ -139,7 +139,7 @@ function generateGenericMock(text: string): PipelineResponse {
 }
 
 // ============================================================
-// MOCK DATA 1 — Biology Field Trip & Lab Fee
+// MOCK DATA 1 - Biology Field Trip & Lab Fee
 // ============================================================
 const mockDemo1: PipelineResponse = {
   pipeline_version: '2.0',
@@ -317,7 +317,7 @@ const mockDemo1: PipelineResponse = {
 };
 
 // ============================================================
-// MOCK DATA 2 — Weekly School Newsletter
+// MOCK DATA 2 - Weekly School Newsletter
 // ============================================================
 const mockDemo2: PipelineResponse = {
   pipeline_version: '2.0',
@@ -615,7 +615,7 @@ const mockDemo2: PipelineResponse = {
 };
 
 // ============================================================
-// MOCK DATA 3 — Emergency Schedule Change
+// MOCK DATA 3 - Emergency Schedule Change
 // ============================================================
 const mockDemo3: PipelineResponse = {
   pipeline_version: '2.0',
@@ -833,7 +833,7 @@ const mockDemo3: PipelineResponse = {
 };
 
 // ============================================================
-// MOCK DATA 4 — AP Exam Fees & Scholarship
+// MOCK DATA 4 - AP Exam Fees & Scholarship
 // ============================================================
 const mockDemo4: PipelineResponse = {
   pipeline_version: '2.0',
@@ -1051,7 +1051,7 @@ const mockDemo4: PipelineResponse = {
 };
 
 // ============================================================
-// MOCK DATA 5 — Prom & Volunteer Signup
+// MOCK DATA 5 - Prom & Volunteer Signup
 // ============================================================
 const mockDemo5: PipelineResponse = {
   pipeline_version: '2.0',

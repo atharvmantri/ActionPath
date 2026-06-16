@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — Calendar Export API Route
+// ActionPath - Calendar Export API Route
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';

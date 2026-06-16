@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ActionPath — Crisis-to-Action Translator for ADHD Students",
+  title: "ActionPath - Crisis-to-Action Translator for ADHD Students",
   description:
     "Seven AI agents working together so one ADHD student never misses a deadline again. Paste a school email, get an actionable checklist in seconds.",
   keywords: ["ADHD", "executive function", "school email", "AI", "Gemini", "deadline tracker", "student tool"],
   authors: [{ name: "ActionPath Team" }],
   openGraph: {
-    title: "ActionPath — Never Miss a Deadline Again",
+    title: "ActionPath - Never Miss a Deadline Again",
     description: "AI-powered executive function tool for ADHD students",
     type: "website",
   },

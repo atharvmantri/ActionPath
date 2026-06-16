@@ -58,7 +58,8 @@ export default function TeamPage() {
 
   return (
     <div style={{ position: 'relative', overflowX: 'hidden', minHeight: '100vh', background: 'var(--bg-primary)' }}>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .team-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
@@ -286,7 +287,7 @@ export default function TeamPage() {
 
       {/* Main Section */}
       <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 24px', zIndex: 1, position: 'relative' }}>
-        
+
         {/* HERO SECTION */}
         <section style={{ textAlign: 'center', marginBottom: '40px' }} className="animate-slide-up">
           <div style={{
@@ -336,7 +337,7 @@ export default function TeamPage() {
 
         {/* TEAM GRID */}
         <div className="team-grid animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          
+
           {/* ATHARV CARD */}
           <div className="team-card">
             <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
@@ -344,10 +345,10 @@ export default function TeamPage() {
                 boxShadow: '0 0 20px rgba(10, 132, 255, 0.25)',
                 overflow: 'hidden',
               }}>
-                <img 
-                  src="https://www.atharv.me/assets/profile-ZmNqRCZO.jpeg" 
-                  alt="Atharv Mantri" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                <img
+                  src="https://www.atharv.me/assets/profile-ZmNqRCZO.jpeg"
+                  alt="Atharv Mantri"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
               <div>
@@ -513,7 +514,7 @@ export default function TeamPage() {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <p>
-            <strong>ActionPath</strong> — Designed with privacy by design. All computations are handled locally.
+            <strong>ActionPath</strong> - Designed with privacy by design. All computations are handled locally.
           </p>
           <p style={{ display: 'flex', gap: '16px', justifyContent: 'center', margin: '4px 0' }}>
             <Link href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Home</Link>

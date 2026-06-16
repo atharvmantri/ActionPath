@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — Service Worker for Smart Reminders & Push
+// ActionPath - Service Worker for Smart Reminders & Push
 // ============================================================
 
 self.addEventListener('install', (event) => {

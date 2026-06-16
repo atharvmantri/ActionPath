@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — localStorage Helpers
+// ActionPath - localStorage Helpers
 // Privacy by design: only task completion state stored, never content
 // ============================================================
 
@@ -32,7 +32,7 @@ function safeSet(key: string, value: unknown): void {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {
-    // Storage full or unavailable — fail silently
+    // Storage full or unavailable - fail silently
   }
 }
 

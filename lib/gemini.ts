@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — 7-Stage Gemini AI Pipeline
+// ActionPath - 7-Stage Gemini AI Pipeline
 // Every stage makes a real Gemini API call. No heuristics.
 // ============================================================
 
@@ -38,7 +38,7 @@ async function callGemini(
 }
 
 // ============================================================
-// STAGE 1 — INTAKE CLASSIFIER (gemini-3.1-flash-lite)
+// STAGE 1 - INTAKE CLASSIFIER (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage1Classify(rawText: string): Promise<Stage1Result> {
   const systemPrompt = `You are an AI intake classifier for school communications. Your job is to analyze the raw text of a school communication and classify it.
@@ -48,7 +48,7 @@ You MUST return a JSON object with these exact fields:
 - "cognitive_load_score": a number from 0 to 10 based on word count, sentence complexity, action density, and urgency language. Higher = more overwhelming for an ADHD student.
 - "word_count": integer count of words in the input
 - "action_density": ratio of action items to total sentences (0.0 to 1.0)
-- "routing_template": one of "DEADLINE_V2", "GENERAL_V2", "EMERGENCY_V2", "FORM_V2", "PAYMENT_V2", "EVENT_V2", "POLICY_V2" — matching the comm_type
+- "routing_template": one of "DEADLINE_V2", "GENERAL_V2", "EMERGENCY_V2", "FORM_V2", "PAYMENT_V2", "EVENT_V2", "POLICY_V2" - matching the comm_type
 - "language_complexity": "low", "medium", or "high" based on vocabulary and sentence structure
 
 Analyze carefully. The classification accuracy affects all downstream processing.`;
@@ -64,7 +64,7 @@ Analyze carefully. The classification accuracy affects all downstream processing
 }
 
 // ============================================================
-// STAGE 2 — ENTITY & CONTEXT EXTRACTION (gemini-3.1-flash-lite)
+// STAGE 2 - ENTITY & CONTEXT EXTRACTION (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage2Extract(
   rawText: string,
@@ -109,7 +109,7 @@ CRITICAL RULES:
 }
 
 // ============================================================
-// STAGE 3 — SCORING & COLLISION (gemini-3.1-flash-lite)
+// STAGE 3 - SCORING & COLLISION (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage3Score(
   stage2: Stage2Result,
@@ -120,7 +120,7 @@ export async function stage3Score(
 For each task, score on these axes:
 - "urgency": 1-10 based on days until deadline (1=far away, 10=due today/overdue)
 - "effort": "low" (click/reply), "medium" (fill form), "high" (write/create), "very_high" (multi-step project)
-- "consequence": what happens if missed — "grade", "opportunity", "social", "financial", "none"
+- "consequence": what happens if missed - "grade", "opportunity", "social", "financial", "none"
 - "dependency": task_id of another task this depends on, or null
 - "composite_score": weighted score 0-10 combining urgency (40%), consequence (30%), effort (20%), dependency (10%)
 
@@ -141,7 +141,7 @@ Return JSON: { "scored_items": [...], "collision_days": [...], "reorder_suggesti
 }
 
 // ============================================================
-// STAGE 4 — CONTEXT FUSION (gemini-3.1-flash-lite)
+// STAGE 4 - CONTEXT FUSION (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage4Fuse(
   stage2: Stage2Result,
@@ -179,7 +179,7 @@ If no student context is provided, return the items as-is with empty dedup array
 }
 
 // ============================================================
-// STAGE 5 — DAY-BY-DAY PLANNING (gemini-3.1-flash-lite)
+// STAGE 5 - DAY-BY-DAY PLANNING (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage5Plan(
   stage2: Stage2Result,
@@ -232,7 +232,7 @@ Return JSON:
 }
 
 // ============================================================
-// STAGE 6 — LANGUAGE REWRITER (gemini-3.1-flash-lite)
+// STAGE 6 - LANGUAGE REWRITER (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage6Rewrite(
   stage2: Stage2Result,
@@ -243,11 +243,11 @@ export async function stage6Rewrite(
 
 RULES:
 - Maximum 12 words per rewritten task
-- Active voice only — start with a verb
+- Active voice only - start with a verb
 - No bureaucratic phrasing, no passive constructions
 - Plain, calm, clear language
 - Add a "why_it_matters" sentence if the task has grade/opportunity/financial consequence
-- Generate a "start_cue" — the SINGLE FIRST physical action the student should take to begin
+- Generate a "start_cue" - the SINGLE FIRST physical action the student should take to begin
   (e.g., "Open Google Forms in your browser", "Get the blue form from your backpack")
   This removes the initiation barrier that ADHD students face.
 
@@ -273,7 +273,7 @@ Return JSON: { "rewritten_items": [...] }`;
 }
 
 // ============================================================
-// STAGE 7 — QA AGENT (gemini-3.1-flash-lite)
+// STAGE 7 - QA AGENT (gemini-3.1-flash-lite)
 // ============================================================
 export async function stage7QA(
   stage2: Stage2Result,
@@ -283,11 +283,11 @@ export async function stage7QA(
   const systemPrompt = `You are a quality assurance agent. Check the full pipeline output for issues.
 
 CHECK FOR:
-1. Missing deadlines: compare extracted count vs planned count — flag any task that was extracted but not planned
-2. Low confidence: any task with confidence < 0.7 — flag as "low_confidence" with action "flag_for_review"
-3. Missing start cue: any rewritten task without a start_cue — flag as "missing_start_cue"
-4. Overloaded days: any day with 3+ tasks not flagged with a load warning — flag as "overloaded_day"
-5. Rewrite too long: any rewritten task over 12 words — flag as "rewrite_too_long"
+1. Missing deadlines: compare extracted count vs planned count - flag any task that was extracted but not planned
+2. Low confidence: any task with confidence < 0.7 - flag as "low_confidence" with action "flag_for_review"
+3. Missing start cue: any rewritten task without a start_cue - flag as "missing_start_cue"
+4. Overloaded days: any day with 3+ tasks not flagged with a load warning - flag as "overloaded_day"
+5. Rewrite too long: any rewritten task over 12 words - flag as "rewrite_too_long"
 
 Return JSON:
 {

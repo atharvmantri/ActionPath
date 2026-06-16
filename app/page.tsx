@@ -147,13 +147,13 @@ function PipelineCard({
         boxShadow: isActive
           ? `0 0 25px ${stage.color}40`
           : isQA
-          ? '0 0 20px rgba(255, 159, 10, 0.15)'
-          : 'var(--shadow-sm)',
+            ? '0 0 20px rgba(255, 159, 10, 0.15)'
+            : 'var(--shadow-sm)',
         transform: isActive
           ? 'translateY(-6px) scale(1.025)'
           : isQA
-          ? 'translateY(0) scale(1.01)'
-          : undefined,
+            ? 'translateY(0) scale(1.01)'
+            : undefined,
         transitionDelay: `${index * 100}ms`,
       }}
     >
@@ -510,7 +510,7 @@ export default function LandingPage() {
 
       {/* Main Section */}
       <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 24px', zIndex: 1, position: 'relative' }}>
-        
+
         {/* ================================================================
             SECTION 1: HERO
             ================================================================ */}
@@ -560,7 +560,7 @@ export default function LandingPage() {
             margin: '0 auto 40px',
             lineHeight: 1.6,
           }}>
-            ActionPath uses seven specialized collaborative AI agents to translate complex, stressful school emails and LMS updates into clear, structured daily checklists. Designed specifically for ADHD students.
+            ActionPath helps ADHD students transform overwhelming school communications into clear deadlines, prioritized tasks, and actionable next steps.
           </p>
 
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -607,24 +607,16 @@ export default function LandingPage() {
             <div className="before-after-card before-card">
               <span className="before-after-label before-label">Before ActionPath</span>
               <div className="before-after-item">
-                <span className="item-icon" style={{ color: 'var(--accent-blue)' }}><MailIcon /></span>
-                <span>500-word school email with multiple topics buried inside</span>
+                <span className="item-icon" style={{ color: 'var(--accent-rose)' }}><MailIcon /></span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Dense communication</span>
               </div>
               <div className="before-after-item">
-                <span className="item-icon" style={{ color: 'var(--accent-blue)' }}><CalendarIcon /></span>
-                <span>3 deadlines hidden across paragraphs of text</span>
+                <span className="item-icon" style={{ color: 'var(--accent-rose)' }}><CalendarIcon /></span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Hidden deadlines</span>
               </div>
               <div className="before-after-item">
-                <span className="item-icon" style={{ color: 'var(--accent-blue)' }}><BrainIcon /></span>
-                <span>Executive dysfunction makes prioritization impossible</span>
-              </div>
-              <div className="before-after-item">
-                <span className="item-icon" style={{ color: 'var(--accent-rose)' }}><WarningIcon /></span>
-                <span>Overwhelm leads to avoidance and procrastination</span>
-              </div>
-              <div className="before-after-item">
-                <span className="item-icon" style={{ color: 'var(--accent-rose)' }}><XCircleIcon /></span>
-                <span>Missed assignment, late fee, or forgotten field trip</span>
+                <span className="item-icon" style={{ color: 'var(--accent-rose)' }}><BrainIcon /></span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Task paralysis</span>
               </div>
             </div>
 
@@ -633,23 +625,15 @@ export default function LandingPage() {
               <span className="before-after-label after-label">After ActionPath</span>
               <div className="before-after-item">
                 <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
-                <span>Deadlines extracted and clearly displayed</span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Clear checklist</span>
               </div>
               <div className="before-after-item">
                 <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
-                <span>Prioritized checklist sorted by urgency</span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Visible deadlines</span>
               </div>
               <div className="before-after-item">
                 <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
-                <span>Start cues generated for each task</span>
-              </div>
-              <div className="before-after-item">
-                <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
-                <span>Weekly plan created with balanced workload</span>
-              </div>
-              <div className="before-after-item">
-                <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
-                <span>Student takes action with confidence</span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Confident action</span>
               </div>
             </div>
           </div>
@@ -663,139 +647,45 @@ export default function LandingPage() {
             <h3>Meet Maya</h3>
           </div>
 
-          <div className="maya-card">
-            <div className="maya-avatar">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-              </svg>
+          <div className="maya-card" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div className="maya-avatar" style={{ margin: '0', flexShrink: 0 }}>
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div>
+                <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>Meet Maya</h4>
+                <p style={{ fontSize: '0.85rem', color: 'var(--accent-blue)', fontWeight: 600, margin: 0 }}>16-year-old sophomore with ADHD</p>
+              </div>
             </div>
 
-            <div className="maya-traits">
-              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><GraduationCapIcon /></span> 16-year-old sophomore</span>
-              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><BrainIcon /></span> Diagnosed ADHD</span>
-              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><MailIcon /></span> 30+ school emails weekly</span>
-              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><CalendarIcon /></span> Frequently misses buried deadlines</span>
-              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><RocketIcon /></span> Needs help starting tasks</span>
-            </div>
-
-            <p className="maya-quote">
-              &ldquo;ActionPath was designed for students like Maya.&rdquo;
-            </p>
-          </div>
-        </section>
-
-        {/* ================================================================
-            SECTION 4: HOW ACTIONPATH WORKS (5-Step Walkthrough)
-            ================================================================ */}
-        <section className="walkthrough-section">
-          <div className="section-heading">
-            <h3>How ActionPath Works</h3>
-            <p>From inbox to action plan in seconds.</p>
-          </div>
-
-          <div className="walkthrough-steps">
-            {[
-              { num: '1', title: 'Paste Email', desc: 'Copy any school email, LMS update, or announcement.' },
-              { num: '2', title: '7 AI Agents Analyze', desc: 'Specialized agents classify, extract, score, plan, and verify.' },
-              { num: '3', title: 'Tasks Extracted', desc: 'Every hidden deadline and action item is surfaced.' },
-              { num: '4', title: 'Weekly Plan Generated', desc: 'Tasks distributed across your week, balanced for capacity.' },
-              { num: '5', title: 'Student Takes Action', desc: 'Clear start cues make beginning effortless.' },
-            ].map((step, idx) => (
-              <React.Fragment key={step.num}>
-                <div className="walkthrough-step">
-                  <div className="walkthrough-step-number">{step.num}</div>
-                  <div className="walkthrough-step-content">
-                    <h4>{step.title}</h4>
-                    <p>{step.desc}</p>
-                  </div>
-                </div>
-                {idx < 4 && <div className="walkthrough-connector" />}
-              </React.Fragment>
-            ))}
-          </div>
-        </section>
-
-        {/* ================================================================
-            SECTION 5: WHY AI?
-            ================================================================ */}
-        <section className="why-ai-section">
-          <div className="section-heading">
-            <h3>Why AI?</h3>
-            <p>Judges ask: &ldquo;Why can&rsquo;t a simple search solve this?&rdquo;</p>
-          </div>
-
-          <div className="why-ai-grid">
-            {/* Left: Capabilities */}
-            <div className="why-ai-left">
-              <p className="why-ai-search-line">
-                <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>Search can find keywords.</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '1.05rem', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
+              <p>
+                Maya is a 16-year-old sophomore with ADHD.
               </p>
-              <p className="why-ai-understands-label">ActionPath understands:</p>
-
-              {[
-                { icon: <SearchIcon />, label: 'Context — what class, what subject, what type of task' },
-                { icon: <ClockIcon />, label: 'Urgency — which deadline matters most right now' },
-                { icon: <AlertTriangleIcon />, label: 'Consequences — what happens if this is missed' },
-                { icon: <CalendarIcon />, label: 'Scheduling conflicts — overlapping due dates' },
-                { icon: <BrainIcon />, label: 'Executive function barriers — why starting feels hard' },
-              ].map((cap) => (
-                <div className="why-ai-capability" key={cap.label}>
-                  <span className="cap-icon" style={{ color: 'var(--accent-blue)', display: 'inline-flex', alignItems: 'center' }}>{cap.icon}</span>
-                  <span>{cap.label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Right: Flow Diagram */}
-            <div className="why-ai-flow">
-              <div className="why-ai-flow-node">
-                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-blue)' }}><MailIcon size={20} /></span>
-                Email
-              </div>
-              <div className="why-ai-flow-arrow" />
-              <div className="why-ai-flow-node highlight">
-                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-purple)' }}><CpuIcon size={20} /></span>
-                AI Reasoning
-              </div>
-              <div className="why-ai-flow-arrow" />
-              <div className="why-ai-flow-node">
-                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-emerald)' }}><ClipboardListIcon size={20} /></span>
-                Action Plan
-              </div>
+              <p>
+                Every week she receives dozens of emails, LMS updates, permission slips, fee notices, and assignment reminders.
+              </p>
+              <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
+                The information is there. The action items are not obvious.
+              </p>
+              <p style={{
+                paddingLeft: '16px',
+                borderLeft: '3px solid var(--accent-blue)',
+                color: 'var(--text-primary)',
+                fontWeight: 600,
+                fontSize: '1.1rem',
+                marginTop: '8px'
+              }}>
+                ActionPath was built to bridge that gap.
+              </p>
             </div>
           </div>
         </section>
 
         {/* ================================================================
-            SECTION 6: ARCHITECTURE VISUALIZATION
-            ================================================================ */}
-        <section className="architecture-section">
-          <div className="section-heading">
-            <h3>System Architecture</h3>
-            <p>A simplified view of how ActionPath transforms information into action.</p>
-          </div>
-
-          <div className="architecture-flow">
-            {[
-              { title: 'School Email', sub: 'Raw, unstructured input', highlight: false },
-              { title: '7 AI Agents', sub: 'Multi-agent pipeline', highlight: true },
-              { title: 'Structured JSON', sub: 'Machine-readable output', highlight: false },
-              { title: 'Action Checklist', sub: 'Human-readable tasks', highlight: false },
-              { title: 'Student Action', sub: 'Confidence to begin', highlight: false },
-            ].map((node, idx) => (
-              <React.Fragment key={node.title}>
-                <div className={`architecture-node ${node.highlight ? 'node-highlight' : ''}`}>
-                  <h4>{node.title}</h4>
-                  <p>{node.sub}</p>
-                </div>
-                {idx < 4 && <div className="architecture-connector" />}
-              </React.Fragment>
-            ))}
-          </div>
-        </section>
-
-        {/* ================================================================
-            SECTION 7: INTERACTIVE DEMO SHOWCASE MOCKUP
+            SECTION 4: LIVE DEMO
             ================================================================ */}
         <section style={{ marginBottom: '100px' }} className="animate-slide-up">
           <div className="section-heading">
@@ -935,6 +825,113 @@ export default function LandingPage() {
         </section>
 
         {/* ================================================================
+            SECTION 5: HOW ACTIONPATH WORKS (5-Step Walkthrough)
+            ================================================================ */}
+        <section className="walkthrough-section">
+          <div className="section-heading">
+            <h3>How ActionPath Works</h3>
+            <p>From inbox to action plan in seconds.</p>
+          </div>
+
+          <div className="walkthrough-steps">
+            {[
+              { num: '1', title: 'Paste Email', desc: 'Copy any school email, LMS update, or announcement.' },
+              { num: '2', title: '7 AI Agents Analyze', desc: 'Specialized agents classify, extract, score, plan, and verify.' },
+              { num: '3', title: 'Tasks Extracted', desc: 'Every hidden deadline and action item is surfaced.' },
+              { num: '4', title: 'Weekly Plan Generated', desc: 'Tasks distributed across your week, balanced for capacity.' },
+              { num: '5', title: 'Student Takes Action', desc: 'Clear start cues make beginning effortless.' },
+            ].map((step, idx) => (
+              <React.Fragment key={step.num}>
+                <div className="walkthrough-step">
+                  <div className="walkthrough-step-number">{step.num}</div>
+                  <div className="walkthrough-step-content">
+                    <h4>{step.title}</h4>
+                    <p>{step.desc}</p>
+                  </div>
+                </div>
+                {idx < 4 && <div className="walkthrough-connector" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 6: WHY AI?
+            ================================================================ */}
+        <section className="why-ai-section">
+          <div className="section-heading">
+            <h3>Why AI?</h3>
+            <p>Traditional tools can find keywords. ActionPath understands context, urgency, and executive-function barriers.</p>
+          </div>
+
+          <div className="why-ai-grid">
+            {/* Left: Capabilities */}
+            <div className="why-ai-left">
+              <p className="why-ai-understands-label" style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '8px' }}>ActionPath understands:</p>
+
+              {[
+                { icon: <SearchIcon />, label: 'Context - what class, what subject, what type of task' },
+                { icon: <ClockIcon />, label: 'Urgency - which deadline matters most right now' },
+                { icon: <AlertTriangleIcon />, label: 'Consequences - what happens if this is missed' },
+                { icon: <CalendarIcon />, label: 'Scheduling conflicts - overlapping due dates' },
+                { icon: <BrainIcon />, label: 'Executive-function barriers - why starting feels hard' },
+              ].map((cap) => (
+                <div className="why-ai-capability" key={cap.label}>
+                  <span className="cap-icon" style={{ color: 'var(--accent-blue)', display: 'inline-flex', alignItems: 'center' }}>{cap.icon}</span>
+                  <span>{cap.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Right: Flow Diagram */}
+            <div className="why-ai-flow">
+              <div className="why-ai-flow-node">
+                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-blue)' }}><MailIcon size={20} /></span>
+                Email
+              </div>
+              <div className="why-ai-flow-arrow" />
+              <div className="why-ai-flow-node highlight">
+                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-purple)' }}><CpuIcon size={20} /></span>
+                AI Reasoning
+              </div>
+              <div className="why-ai-flow-arrow" />
+              <div className="why-ai-flow-node">
+                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-emerald)' }}><ClipboardListIcon size={20} /></span>
+                Action Plan
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 7: ARCHITECTURE VISUALIZATION
+            ================================================================ */}
+        <section className="architecture-section">
+          <div className="section-heading">
+            <h3>System Architecture</h3>
+            <p>A simplified view of how ActionPath transforms information into action.</p>
+          </div>
+
+          <div className="architecture-flow">
+            {[
+              { title: 'School Email', sub: 'Raw, unstructured input', highlight: false },
+              { title: '7 AI Agents', sub: 'Multi-agent pipeline', highlight: true },
+              { title: 'Structured JSON', sub: 'Machine-readable output', highlight: false },
+              { title: 'Action Checklist', sub: 'Human-readable tasks', highlight: false },
+              { title: 'Student Action', sub: 'Confidence to begin', highlight: false },
+            ].map((node, idx) => (
+              <React.Fragment key={node.title}>
+                <div className={`architecture-node ${node.highlight ? 'node-highlight' : ''}`}>
+                  <h4>{node.title}</h4>
+                  <p>{node.sub}</p>
+                </div>
+                {idx < 4 && <div className="architecture-connector" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* ================================================================
             SECTION 8: 7-STAGE PIPELINE ARCHITECTURE CARD GRID
             ================================================================ */}
         <section id="how-it-works" ref={sectionRef} style={{ marginBottom: '100px', scrollMarginTop: '80px' }}>
@@ -990,7 +987,7 @@ export default function LandingPage() {
         {/* ================================================================
             SECTION 9: BUILT WITH RESPONSIBLE AI
             ================================================================ */}
-        <section className="responsible-ai-section">
+        <section className="responsible-ai-section" style={{ marginBottom: '80px' }}>
           <div className="section-heading">
             <h3>Built with Responsible AI</h3>
             <p>Trust and transparency are foundational to ActionPath&rsquo;s design.</p>
@@ -1032,12 +1029,72 @@ export default function LandingPage() {
         </section>
 
         {/* ================================================================
-            SECTION 10: CORE FEATURES (Real Differentiators)
+            SECTION 10: TRUST & TRANSPARENCY
+            ================================================================ */}
+        <section style={{ marginBottom: '100px' }}>
+          <div className="section-heading">
+            <h3>Trust & Transparency</h3>
+            <p>Every decision made by the AI is transparent, verifiable, and traceable back to the source.</p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '24px',
+          }}>
+            {/* Trust 1: Original Source Sentence */}
+            <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)', borderLeft: '3px solid var(--accent-blue)' }}>
+              <div style={{ color: 'var(--accent-emerald)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleIcon size={20} />
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Original Source Sentence</h4>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                Verify exactly where a task came from. ActionPath links every extracted action item back to the original sentence in the school email.
+              </p>
+            </div>
+
+            {/* Trust 2: Confidence Score */}
+            <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)', borderLeft: '3px solid var(--accent-purple)' }}>
+              <div style={{ color: 'var(--accent-emerald)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleIcon size={20} />
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Confidence Score</h4>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                Know the certainty level. Each task is scored based on linguistic clarity, helping you spot ambiguous instructions that need check-in.
+              </p>
+            </div>
+
+            {/* Trust 3: Verification Status */}
+            <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)', borderLeft: '3px solid var(--accent-cyan)' }}>
+              <div style={{ color: 'var(--accent-emerald)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleIcon size={20} />
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Verification Status</h4>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                Checked by the pipeline. No task is added without going through our multi-agent sanity checks to prevent false alarms and hallucinations.
+              </p>
+            </div>
+
+            {/* Trust 4: Traceable Reasoning Chain */}
+            <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)', borderLeft: '3px solid var(--accent-orange)' }}>
+              <div style={{ color: 'var(--accent-emerald)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleIcon size={20} />
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Traceable Reasoning Chain</h4>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                Explainable AI in action. Review the logical steps the agent pipeline took to arrive at a task's priority, effort, and start cue.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 11: CORE FEATURES (Real Differentiators)
             ================================================================ */}
         <section style={{ marginBottom: '100px' }}>
           <div className="section-heading">
             <h3>Built to Support Executive Function</h3>
-            <p>Real features that exist today — not roadmap items.</p>
+            <p>Real features that exist today - not roadmap items.</p>
           </div>
 
           <div style={{
@@ -1092,7 +1149,7 @@ export default function LandingPage() {
         </section>
 
         {/* ================================================================
-            SECTION 11: IMPACT
+            SECTION 12: IMPACT
             ================================================================ */}
         <section className="impact-section">
           <div className="section-heading">
@@ -1121,7 +1178,7 @@ export default function LandingPage() {
         </section>
 
         {/* ================================================================
-            SECTION 12: BOTTOM CTA
+            SECTION 13: BOTTOM CTA
             ================================================================ */}
         <section style={{
           background: 'linear-gradient(135deg, rgba(10, 132, 255, 0.05) 0%, rgba(134, 46, 156, 0.05) 100%)',
@@ -1153,7 +1210,7 @@ export default function LandingPage() {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <p>
-            <strong>ActionPath</strong> — Designed with privacy by design. All computations are handled locally.
+            <strong>ActionPath</strong> - Designed with privacy by design. All computations are handled locally.
           </p>
           <p style={{ display: 'flex', gap: '16px', justifyContent: 'center', margin: '4px 0' }}>
             <Link href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Home</Link>

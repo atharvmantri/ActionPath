@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — ICS Calendar Export Helper
+// ActionPath - ICS Calendar Export Helper
 // ============================================================
 
 import type { ActionTask } from './schema';

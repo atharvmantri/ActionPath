@@ -1,5 +1,5 @@
 // ============================================================
-// ActionPath — TypeScript Types for 7-Stage Gemini Pipeline
+// ActionPath - TypeScript Types for 7-Stage Gemini Pipeline
 // ============================================================
 
 // ---- Stage 1: Intake Classifier ----

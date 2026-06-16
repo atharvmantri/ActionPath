@@ -84,7 +84,7 @@ export default function MoodCheckIn({ onMoodSelect, selectedMood }: MoodCheckInP
           textAlign: 'center',
           fontStyle: 'italic',
         }}>
-          We&apos;ll keep it light — showing only the most urgent tasks.
+          We&apos;ll keep it light - showing only the most urgent tasks.
         </p>
       )}
     </div>
