@@ -2,8 +2,6 @@
 
 ActionPath is an AI-powered executive function tool designed specifically for high school students with Attention-Deficit/Hyperactivity Disorder (ADHD) who struggle with managing academic obligations buried within school communications. By replacing administrative overwhelm with structural clarity, ActionPath translates dense, stressful school updates, emails, syllabi, and learning management system (LMS) notifications into plain, structured, and manageable action checklists.
 
-This project was built for the USAII Global AI Hackathon 2026 under the High School Track (Challenge 1A).
-
 The source code and repository are hosted at: https://github.com/atharvmantri/ActionPath
 
 ---
