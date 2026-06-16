@@ -358,7 +358,7 @@ export default function LandingPage() {
           alignItems: 'center',
         }}>
           {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'inherit' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-blue)' }}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
             <h1 style={{
               fontSize: '1.05rem',
@@ -368,10 +368,13 @@ export default function LandingPage() {
             }}>
               <span className="gradient-text">ActionPath</span>
             </h1>
-          </div>
+          </Link>
 
           {/* Action Buttons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Link href="/team" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500, marginRight: '16px' }}>
+              Our Team
+            </Link>
             <button
               onClick={toggleTheme}
               className="btn-ghost"
@@ -779,6 +782,11 @@ export default function LandingPage() {
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <p>
             <strong>ActionPath</strong> — Designed with privacy by design. All computations are handled locally.
+          </p>
+          <p style={{ display: 'flex', gap: '16px', justifyContent: 'center', margin: '4px 0' }}>
+            <Link href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Home</Link>
+            <span>•</span>
+            <Link href="/team" style={{ color: 'var(--accent-blue)', textDecoration: 'none', fontWeight: 600 }}>Our Team</Link>
           </p>
           <p style={{ fontSize: '0.72rem' }}>
             AI-generated suggestions should be verified directly. Always cross-reference major exams and school deadlines.
