@@ -633,8 +633,9 @@ export default function Home() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {user ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginRight: '6px' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-                  👤 {user.username}
+                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                  {user.username}
                 </span>
                 <button onClick={handleLogout} className="btn-ghost" style={{ fontSize: '0.78rem', padding: '6px 10px' }}>
                   Sign Out

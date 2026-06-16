@@ -4,6 +4,75 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { loadTheme, saveTheme, loadAccessibility, saveAccessibility } from '@/lib/storage';
 
+// Premium SVG Icons (Replacing Emojis)
+const MailIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+);
+
+const CalendarIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h18" /></svg>
+);
+
+const BrainIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" /><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" /><path d="M12 5v14" /></svg>
+);
+
+const WarningIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg>
+);
+
+const XCircleIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></svg>
+);
+
+const CheckCircleIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>
+);
+
+const GraduationCapIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" /></svg>
+);
+
+const RocketIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5" /><path d="M12 2C6.5 2 2 6.5 2 12c0 2.5 2 4 4.5 4.5.5-1.5 1.5-3 3.5-3.5 1.5-.5 3-.5 4.5 0 2 .5 3.5 1.5 3.5 3.5 2.5-.5 4.5-2 4.5-4.5C22 6.5 17.5 2 12 2Z" /><path d="M9 15c-1.5-1.5-2.5-3-2.5-3" /><path d="M15 9c1.5 1.5 3 2.5 3 2.5" /></svg>
+);
+
+const AlertTriangleIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+);
+
+const ShieldCheckIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="m9 11 2 2 4-4" /></svg>
+);
+
+const UserCheckIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><polyline points="16 11 18 13 22 9" /></svg>
+);
+
+const PuzzleIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 3v18" /><path d="M15 3v18" /><path d="M3 9h18" /><path d="M3 15h18" /></svg>
+);
+
+const ZapIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+);
+
+const SearchIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+);
+
+const ClockIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+);
+
+const CpuIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><rect width="16" height="16" x="4" y="4" rx="2" /><path d="M9 9h6v6H9z" /><path d="M9 1v3" /><path d="M15 1v3" /><path d="M9 20v3" /><path d="M15 20v3" /><path d="M20 9h3" /><path d="M20 15h3" /><path d="M1 9h3" /><path d="M1 15h3" /></svg>
+);
+
+const ClipboardListIcon = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="M9 9h6" /><path d="M9 13h6" /><path d="M9 17h6" /></svg>
+);
+
 interface Stage {
   step: string;
   title: string;
@@ -72,7 +141,7 @@ function PipelineCard({
 
   return (
     <div
-      className={`pipeline-card ${isQA ? 'qa-stage-special' : ''} ${isActive ? 'active-stage' : ''}`}
+      className={`pipeline-card stagger-card ${isQA ? 'qa-stage-special' : ''} ${isActive ? 'active-stage' : ''}`}
       style={{
         borderColor: isActive ? stage.color : isQA ? 'var(--accent-amber)' : 'var(--border-subtle)',
         boxShadow: isActive
@@ -81,27 +150,28 @@ function PipelineCard({
           ? '0 0 20px rgba(255, 159, 10, 0.15)'
           : 'var(--shadow-sm)',
         transform: isActive
-          ? 'translateY(-6px) scale(1.03)'
+          ? 'translateY(-6px) scale(1.025)'
           : isQA
           ? 'translateY(0) scale(1.01)'
           : undefined,
+        transitionDelay: `${index * 100}ms`,
       }}
     >
       {isQA && (
         <div style={{
           position: 'absolute',
           top: '-10px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'linear-gradient(135deg, var(--accent-orange), var(--accent-amber))',
-          color: '#000000',
-          fontSize: '0.62rem',
-          fontWeight: 800,
+          left: '24px',
+          border: '1px solid var(--accent-amber)',
+          background: 'rgba(255, 159, 10, 0.08)',
+          color: 'var(--accent-amber)',
+          fontSize: '0.6rem',
+          fontWeight: 700,
           letterSpacing: '0.05em',
           textTransform: 'uppercase',
-          padding: '3px 10px',
+          padding: '2px 8px',
           borderRadius: '9999px',
-          boxShadow: '0 2px 8px rgba(255, 159, 10, 0.3)',
+          boxShadow: '0 2px 8px rgba(255, 159, 10, 0.05)',
           whiteSpace: 'nowrap',
           zIndex: 10,
         }}>
@@ -113,13 +183,13 @@ function PipelineCard({
         position: 'absolute',
         top: '16px',
         right: '16px',
-        fontSize: '2.5rem',
-        fontWeight: 900,
-        opacity: 0.04,
-        lineHeight: 1,
+        fontSize: '0.7rem',
+        fontWeight: 600,
         fontFamily: 'monospace',
+        color: 'var(--text-muted)',
+        letterSpacing: '0.05em',
       }}>
-        0{stage.step}
+        [0{stage.step} / 07]
       </div>
 
       <div style={{
@@ -144,15 +214,18 @@ function PipelineCard({
           fontSize: '1rem',
           fontWeight: 700,
           color: 'var(--text-primary)',
+          margin: 0,
         }}>
           {stage.title}
         </h4>
         <span style={{
-          fontSize: '0.72rem',
-          fontWeight: 600,
+          fontSize: '0.65rem',
+          fontWeight: 700,
           color: stage.color,
-          letterSpacing: '0.02em',
+          letterSpacing: '0.08em',
           textTransform: 'uppercase',
+          display: 'block',
+          marginTop: '2px',
         }}>
           {stage.subtitle}
         </span>
@@ -162,6 +235,7 @@ function PipelineCard({
         fontSize: '0.82rem',
         color: 'var(--text-secondary)',
         lineHeight: 1.5,
+        margin: '8px 0 0',
       }}>
         {stage.desc}
       </p>
@@ -174,6 +248,23 @@ export default function LandingPage() {
   const [highContrast, setHighContrast] = useState(false);
   const [largeText, setLargeText] = useState(false);
   const [activeAgentIndex, setActiveAgentIndex] = useState(0);
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsSectionVisible(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -420,7 +511,9 @@ export default function LandingPage() {
       {/* Main Section */}
       <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 24px', zIndex: 1, position: 'relative' }}>
         
-        {/* HERO SECTION */}
+        {/* ================================================================
+            SECTION 1: HERO
+            ================================================================ */}
         <section style={{ textAlign: 'center', marginBottom: '80px' }}>
           <div style={{
             display: 'inline-flex',
@@ -482,11 +575,11 @@ export default function LandingPage() {
               alignItems: 'center',
               gap: '8px',
             }}>
-              Start Planning Now
+              Try ActionPath
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
             </Link>
 
-            <a href="#how-it-works" className="btn-secondary" style={{
+            <a href="#the-problem" className="btn-secondary" style={{
               padding: '14px 32px',
               fontSize: '1rem',
               fontWeight: 600,
@@ -495,13 +588,221 @@ export default function LandingPage() {
               display: 'inline-flex',
               alignItems: 'center',
             }}>
-              How it works
+              See the Problem
             </a>
           </div>
         </section>
 
-        {/* INTERACTIVE DEMO SHOWCASE MOCKUP */}
+        {/* ================================================================
+            SECTION 2: WHY STUDENTS MISS DEADLINES (Before/After)
+            ================================================================ */}
+        <section id="the-problem" style={{ scrollMarginTop: '80px' }}>
+          <div className="section-heading">
+            <h3>Why Students Miss Deadlines</h3>
+            <p>The gap between receiving information and taking action is where students with ADHD struggle most.</p>
+          </div>
+
+          <div className="before-after-section">
+            {/* BEFORE */}
+            <div className="before-after-card before-card">
+              <span className="before-after-label before-label">Before ActionPath</span>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-blue)' }}><MailIcon /></span>
+                <span>500-word school email with multiple topics buried inside</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-blue)' }}><CalendarIcon /></span>
+                <span>3 deadlines hidden across paragraphs of text</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-blue)' }}><BrainIcon /></span>
+                <span>Executive dysfunction makes prioritization impossible</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-rose)' }}><WarningIcon /></span>
+                <span>Overwhelm leads to avoidance and procrastination</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-rose)' }}><XCircleIcon /></span>
+                <span>Missed assignment, late fee, or forgotten field trip</span>
+              </div>
+            </div>
+
+            {/* AFTER */}
+            <div className="before-after-card after-card">
+              <span className="before-after-label after-label">After ActionPath</span>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
+                <span>Deadlines extracted and clearly displayed</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
+                <span>Prioritized checklist sorted by urgency</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
+                <span>Start cues generated for each task</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
+                <span>Weekly plan created with balanced workload</span>
+              </div>
+              <div className="before-after-item">
+                <span className="item-icon" style={{ color: 'var(--accent-emerald)' }}><CheckCircleIcon /></span>
+                <span>Student takes action with confidence</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 3: MEET MAYA
+            ================================================================ */}
+        <section className="maya-section">
+          <div className="section-heading">
+            <h3>Meet Maya</h3>
+          </div>
+
+          <div className="maya-card">
+            <div className="maya-avatar">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+
+            <div className="maya-traits">
+              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><GraduationCapIcon /></span> 16-year-old sophomore</span>
+              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><BrainIcon /></span> Diagnosed ADHD</span>
+              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><MailIcon /></span> 30+ school emails weekly</span>
+              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><CalendarIcon /></span> Frequently misses buried deadlines</span>
+              <span className="maya-trait"><span className="trait-icon" style={{ color: 'var(--accent-blue)' }}><RocketIcon /></span> Needs help starting tasks</span>
+            </div>
+
+            <p className="maya-quote">
+              &ldquo;ActionPath was designed for students like Maya.&rdquo;
+            </p>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 4: HOW ACTIONPATH WORKS (5-Step Walkthrough)
+            ================================================================ */}
+        <section className="walkthrough-section">
+          <div className="section-heading">
+            <h3>How ActionPath Works</h3>
+            <p>From inbox to action plan in seconds.</p>
+          </div>
+
+          <div className="walkthrough-steps">
+            {[
+              { num: '1', title: 'Paste Email', desc: 'Copy any school email, LMS update, or announcement.' },
+              { num: '2', title: '7 AI Agents Analyze', desc: 'Specialized agents classify, extract, score, plan, and verify.' },
+              { num: '3', title: 'Tasks Extracted', desc: 'Every hidden deadline and action item is surfaced.' },
+              { num: '4', title: 'Weekly Plan Generated', desc: 'Tasks distributed across your week, balanced for capacity.' },
+              { num: '5', title: 'Student Takes Action', desc: 'Clear start cues make beginning effortless.' },
+            ].map((step, idx) => (
+              <React.Fragment key={step.num}>
+                <div className="walkthrough-step">
+                  <div className="walkthrough-step-number">{step.num}</div>
+                  <div className="walkthrough-step-content">
+                    <h4>{step.title}</h4>
+                    <p>{step.desc}</p>
+                  </div>
+                </div>
+                {idx < 4 && <div className="walkthrough-connector" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 5: WHY AI?
+            ================================================================ */}
+        <section className="why-ai-section">
+          <div className="section-heading">
+            <h3>Why AI?</h3>
+            <p>Judges ask: &ldquo;Why can&rsquo;t a simple search solve this?&rdquo;</p>
+          </div>
+
+          <div className="why-ai-grid">
+            {/* Left: Capabilities */}
+            <div className="why-ai-left">
+              <p className="why-ai-search-line">
+                <span style={{ textDecoration: 'line-through', opacity: 0.5 }}>Search can find keywords.</span>
+              </p>
+              <p className="why-ai-understands-label">ActionPath understands:</p>
+
+              {[
+                { icon: <SearchIcon />, label: 'Context — what class, what subject, what type of task' },
+                { icon: <ClockIcon />, label: 'Urgency — which deadline matters most right now' },
+                { icon: <AlertTriangleIcon />, label: 'Consequences — what happens if this is missed' },
+                { icon: <CalendarIcon />, label: 'Scheduling conflicts — overlapping due dates' },
+                { icon: <BrainIcon />, label: 'Executive function barriers — why starting feels hard' },
+              ].map((cap) => (
+                <div className="why-ai-capability" key={cap.label}>
+                  <span className="cap-icon" style={{ color: 'var(--accent-blue)', display: 'inline-flex', alignItems: 'center' }}>{cap.icon}</span>
+                  <span>{cap.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Right: Flow Diagram */}
+            <div className="why-ai-flow">
+              <div className="why-ai-flow-node">
+                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-blue)' }}><MailIcon size={20} /></span>
+                Email
+              </div>
+              <div className="why-ai-flow-arrow" />
+              <div className="why-ai-flow-node highlight">
+                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-purple)' }}><CpuIcon size={20} /></span>
+                AI Reasoning
+              </div>
+              <div className="why-ai-flow-arrow" />
+              <div className="why-ai-flow-node">
+                <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: '8px', color: 'var(--accent-emerald)' }}><ClipboardListIcon size={20} /></span>
+                Action Plan
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 6: ARCHITECTURE VISUALIZATION
+            ================================================================ */}
+        <section className="architecture-section">
+          <div className="section-heading">
+            <h3>System Architecture</h3>
+            <p>A simplified view of how ActionPath transforms information into action.</p>
+          </div>
+
+          <div className="architecture-flow">
+            {[
+              { title: 'School Email', sub: 'Raw, unstructured input', highlight: false },
+              { title: '7 AI Agents', sub: 'Multi-agent pipeline', highlight: true },
+              { title: 'Structured JSON', sub: 'Machine-readable output', highlight: false },
+              { title: 'Action Checklist', sub: 'Human-readable tasks', highlight: false },
+              { title: 'Student Action', sub: 'Confidence to begin', highlight: false },
+            ].map((node, idx) => (
+              <React.Fragment key={node.title}>
+                <div className={`architecture-node ${node.highlight ? 'node-highlight' : ''}`}>
+                  <h4>{node.title}</h4>
+                  <p>{node.sub}</p>
+                </div>
+                {idx < 4 && <div className="architecture-connector" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 7: INTERACTIVE DEMO SHOWCASE MOCKUP
+            ================================================================ */}
         <section style={{ marginBottom: '100px' }} className="animate-slide-up">
+          <div className="section-heading">
+            <h3>Live Demo</h3>
+            <p>See how ActionPath transforms a real school email into an actionable checklist.</p>
+          </div>
+
           <div className="glass-card-static" style={{
             padding: '24px',
             display: 'grid',
@@ -595,7 +896,7 @@ export default function LandingPage() {
                         Get permission slip signed for Wetland Preserve field trip and drop it in Room 204.
                       </p>
                       <p style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-                        💡 Ms. Rivera needs the physical slip. Start by printing it tonight.
+                        Tip: Ms. Rivera needs the physical slip. Start by printing it tonight.
                       </p>
                     </div>
                   </div>
@@ -633,18 +934,16 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* 7-STAGE PIPELINE ARCHITECTURE CARD GRID */}
-        <section id="how-it-works" style={{ marginBottom: '100px', scrollMarginTop: '80px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-              Powered by 7 Collaborative AI Agents
-            </h3>
-            <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', maxWidth: '500px', margin: '8px auto 0' }}>
-              Unlike simple models, ActionPath orchestrates a chain of specialized agents, each checking and optimizing the output.
-            </p>
+        {/* ================================================================
+            SECTION 8: 7-STAGE PIPELINE ARCHITECTURE CARD GRID
+            ================================================================ */}
+        <section id="how-it-works" ref={sectionRef} style={{ marginBottom: '100px', scrollMarginTop: '80px' }}>
+          <div className="section-heading">
+            <h3>Powered by 7 Collaborative AI Agents</h3>
+            <p>Unlike simple models, ActionPath orchestrates a chain of specialized agents, each checking and optimizing the output.</p>
           </div>
 
-          <div className="pipeline-showcase">
+          <div className={`pipeline-showcase ${isSectionVisible ? 'animate-in' : ''}`}>
             {/* Desktop 4+3 Layout */}
             <div className="pipeline-desktop-layout">
               {/* Row 1: Classify, Extract, Score, Fuse */}
@@ -688,15 +987,57 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* CORE FEATURES LIST */}
-        <section style={{ marginBottom: '80px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-              Built to Support Executive Function
-            </h3>
-            <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
-              Features engineered for ADHD and cognitive support.
-            </p>
+        {/* ================================================================
+            SECTION 9: BUILT WITH RESPONSIBLE AI
+            ================================================================ */}
+        <section className="responsible-ai-section">
+          <div className="section-heading">
+            <h3>Built with Responsible AI</h3>
+            <p>Trust and transparency are foundational to ActionPath&rsquo;s design.</p>
+          </div>
+
+          <div className="responsible-ai-cards">
+            {/* Risk Card */}
+            <div className="rai-card risk">
+              <div className="rai-card-icon" style={{ color: 'var(--accent-rose)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><AlertTriangleIcon size={28} /></div>
+              <h4>Risk</h4>
+              <p>AI may misinterpret a deadline or extract incorrect information from an ambiguous email.</p>
+            </div>
+
+            {/* Mitigation Card */}
+            <div className="rai-card mitigation">
+              <div className="rai-card-icon" style={{ color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ShieldCheckIcon size={28} /></div>
+              <h4>Mitigation</h4>
+              <ul>
+                <li>Source sentence verification</li>
+                <li>Confidence scores on every task</li>
+                <li>QA agent review layer</li>
+                <li>Original text always visible</li>
+              </ul>
+            </div>
+
+            {/* Human Control Card */}
+            <div className="rai-card control">
+              <div className="rai-card-icon" style={{ color: 'var(--accent-emerald)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><UserCheckIcon size={28} /></div>
+              <h4>Human Control</h4>
+              <ul>
+                <li>ActionPath never submits forms</li>
+                <li>Never pays fees</li>
+                <li>Never makes decisions</li>
+                <li>Never accesses accounts</li>
+              </ul>
+              <p className="rai-emphasis">Student remains in control.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 10: CORE FEATURES (Real Differentiators)
+            ================================================================ */}
+        <section style={{ marginBottom: '100px' }}>
+          <div className="section-heading">
+            <h3>Built to Support Executive Function</h3>
+            <p>Real features that exist today — not roadmap items.</p>
           </div>
 
           <div style={{
@@ -704,53 +1045,84 @@ export default function LandingPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
             gap: '24px',
           }}>
-            {/* Feature 1 */}
+            {/* Feature 1: Source Traceability */}
             <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)' }}>
               <div style={{ color: 'var(--accent-blue)', marginBottom: '12px' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
               </div>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>Voice Input Processor</h4>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>Source Traceability</h4>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Bypass typing anxiety. Dictate syllabus items, homework lists, or general reminders and let our voice parser break them down.
+                See the exact sentence each task was extracted from. Full transparency into how the AI interpreted the source material.
               </p>
             </div>
 
-            {/* Feature 2 */}
+            {/* Feature 2: Confidence Scoring */}
             <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)' }}>
               <div style={{ color: 'var(--accent-purple)', marginBottom: '12px' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
               </div>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>Classroom OAuth Sync</h4>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>Confidence Scoring</h4>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Directly connect to Google Classroom coursework streams. Pull due dates, descriptions, and updates in one unified dashboard.
+                Every extracted task comes with a confidence score. Know which tasks are certain and which need manual review.
               </p>
             </div>
 
-            {/* Feature 3 */}
+            {/* Feature 3: Deadline Collision Detection */}
             <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)' }}>
               <div style={{ color: 'var(--accent-orange)', marginBottom: '12px' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
               </div>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>Auto-Forwarding Inbox</h4>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>Deadline Collision Detection</h4>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Configure your inbound address. Forward school emails to see them immediately turn into structured calendar items.
+                Catch overloaded weeks before they happen. ActionPath flags when too many deadlines cluster on the same day.
               </p>
             </div>
 
-            {/* Feature 4 */}
+            {/* Feature 4: ADHD Start Cues */}
             <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)' }}>
-              <div style={{ color: 'var(--accent-cyan)', marginBottom: '12px' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div style={{ color: 'var(--accent-emerald)', marginBottom: '12px' }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
               </div>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>Parent & Counselor Share</h4>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>ADHD Start Cues</h4>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Share custom read-only URLs to counselors or parents. Keep support systems updated on your plans without any data logs.
+                Get the first physical action to begin each task. Not &ldquo;write essay&rdquo; but &ldquo;open laptop, create new doc, type title.&rdquo;
               </p>
             </div>
           </div>
         </section>
 
-        {/* BOTTOM CTA CALLOUT */}
+        {/* ================================================================
+            SECTION 11: IMPACT
+            ================================================================ */}
+        <section className="impact-section">
+          <div className="section-heading">
+            <h3>Impact</h3>
+            <p>What ActionPath changes for students who struggle with executive function.</p>
+          </div>
+
+          <div className="impact-grid">
+            {[
+              { icon: <PuzzleIcon size={24} />, label: 'Reduces confusion from complex communications' },
+              { icon: <CalendarIcon size={24} />, label: 'Improves deadline visibility and awareness' },
+              { icon: <BrainIcon size={24} />, label: 'Supports executive function and task initiation' },
+              { icon: <RocketIcon size={24} />, label: 'Promotes independent action and self-advocacy' },
+              { icon: <ZapIcon size={24} />, label: 'Builds confidence through small, achievable wins' },
+            ].map((item) => (
+              <div className="impact-item" key={item.label}>
+                <div className="impact-icon" style={{ color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{item.icon}</div>
+                <p>{item.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="impact-scale-statement">
+            <p>&ldquo;Designed for millions of students who struggle to translate information into action.&rdquo;</p>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 12: BOTTOM CTA
+            ================================================================ */}
         <section style={{
           background: 'linear-gradient(135deg, rgba(10, 132, 255, 0.05) 0%, rgba(134, 46, 156, 0.05) 100%)',
           borderRadius: 'var(--radius-xl)',
@@ -760,12 +1132,12 @@ export default function LandingPage() {
           boxShadow: 'var(--shadow-lg)',
           marginBottom: '64px',
         }}>
-          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px' }}>Ready to conquer your assignments?</h3>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '16px' }}>Stop missing what matters.</h3>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', maxWidth: '500px', margin: '0 auto 28px', lineHeight: 1.5 }}>
-            No accounts. No server-side tracking. Your data stays entirely in your browser storage. 100% free and open-source.
+            Turn school communications into action plans in seconds.
           </p>
           <Link href="/app" className="btn-primary" style={{ padding: '14px 36px', fontSize: '1rem', fontWeight: 600, borderRadius: 'var(--radius-md)', textDecoration: 'none' }}>
-            Open Planner
+            Try ActionPath
           </Link>
         </section>
       </main>
