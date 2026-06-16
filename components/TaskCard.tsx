@@ -32,6 +32,7 @@ export default function TaskCard({
   const [editText, setEditText] = useState(task.rewritten);
   const subjectColor = getSubjectColor(task.subject);
   const hasQAIssues = task.qa_issues.length > 0;
+  const isLowConfidence = task.confidence < 0.7;
 
   const effortConfig: Record<string, { label: string; className: string }> = {
     low: { label: 'Quick', className: 'badge-effort-low' },
@@ -48,6 +49,7 @@ export default function TaskCard({
       style={{
         padding: '16px 20px',
         borderLeft: `3px solid ${subjectColor}`,
+        border: isLowConfidence ? '1.5px solid var(--accent-rose)' : undefined,
         opacity: task.completed ? 0.5 : 1,
         transition: 'all 0.3s ease',
         animationDelay: `${index * 0.05}s`,
@@ -137,7 +139,7 @@ export default function TaskCard({
                   </span>
                 </span>
               )}
-              <ConfidenceBadge confidence={task.confidence} showLabel={false} />
+              <ConfidenceBadge confidence={task.confidence} showLabel={isLowConfidence} />
               <span className={`badge ${effort.className}`}>{effort.label}</span>
             </div>
           </div>

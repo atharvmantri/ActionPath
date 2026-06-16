@@ -173,7 +173,7 @@ export default function WeekView({ tasks, collisionDays, dailyBudgets }: WeekVie
                       }}>
                         {task.rewritten}
                       </span>
-                      <ConfidenceBadge confidence={task.confidence} showLabel={false} />
+                      <ConfidenceBadge confidence={task.confidence} showLabel={task.confidence < 0.7} />
                     </div>
                     <div style={{
                       display: 'flex',
