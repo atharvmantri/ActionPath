@@ -36,6 +36,7 @@ export interface ExtractedItem {
   subject: string | null;
   url: string | null;
   confidence: number; // 0–1
+  is_recurring?: boolean;
 }
 
 export interface Stage2Result {
@@ -151,6 +152,7 @@ export interface ActionTask {
   subject: string | null;
   url: string | null;
   confidence: number;
+  is_recurring?: boolean;
   // From scoring
   urgency: number;
   effort: EffortLevel;
@@ -171,6 +173,13 @@ export interface ActionTask {
   completed: boolean;
 }
 
+export interface EffortFeedback {
+  task: string;
+  estimated_mins: number;
+  actual_mins: number;
+  submitted_at: string;
+}
+
 // ---- Student Context (stored in localStorage) ----
 export interface StudentContext {
   completed_task_ids: string[];
@@ -178,6 +187,7 @@ export interface StudentContext {
   busy_days: string[]; // e.g. ["Monday", "Wednesday"]
   preferred_working_times: string | null;
   past_tasks: { task_id: string; task: string; completed_at: string }[];
+  effort_feedback?: EffortFeedback[];
 }
 
 // ---- Pipeline Stage Info (for progress UI) ----

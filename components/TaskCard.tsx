@@ -13,6 +13,8 @@ interface TaskCardProps {
   onDelete: (taskId: string) => void;
   onEdit: (taskId: string, newText: string) => void;
   index: number;
+  onStartFocus?: (task: ActionTask) => void;
+  readOnly?: boolean;
 }
 
 export default function TaskCard({
@@ -22,6 +24,8 @@ export default function TaskCard({
   onDelete,
   onEdit,
   index,
+  onStartFocus,
+  readOnly = false,
 }: TaskCardProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -56,7 +60,8 @@ export default function TaskCard({
           type="checkbox"
           className="task-checkbox"
           checked={task.completed}
-          onChange={() => onToggleComplete(task.task_id)}
+          disabled={readOnly}
+          onChange={() => !readOnly && onToggleComplete(task.task_id)}
           aria-label={`Mark "${task.rewritten}" as ${task.completed ? 'incomplete' : 'complete'}`}
           id={`task-${task.task_id}`}
         />
@@ -123,7 +128,15 @@ export default function TaskCard({
             </div>
 
             {/* Badges */}
-            <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+            <div style={{ display: 'flex', gap: '4px', flexShrink: 0, alignItems: 'center' }}>
+              {task.is_recurring && (
+                <span className="badge" style={{ background: 'rgba(139, 92, 246, 0.12)', color: '#a78bfa', borderColor: 'rgba(139, 92, 246, 0.3)' }} title="Recurring Task">
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    Weekly
+                  </span>
+                </span>
+              )}
               <ConfidenceBadge confidence={task.confidence} showLabel={false} />
               <span className={`badge ${effort.className}`}>{effort.label}</span>
             </div>
@@ -242,7 +255,7 @@ export default function TaskCard({
               View source sentence
             </button>
             {showTooltip && (
-              <div className="tooltip-content" style={{ bottom: 'auto', top: 'calc(100% + 8px)', left: 0, transform: 'none' }}>
+              <div className="tooltip-content" style={{ bottom: 'calc(100% + 6px)', top: 'auto', left: 0 }}>
                 <div style={{ marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <ConfidenceBadge confidence={task.confidence} />
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
@@ -261,24 +274,37 @@ export default function TaskCard({
         </div>
 
         {/* Actions */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flexShrink: 0 }}>
-          <button
-            onClick={() => setIsEditing(true)}
-            className="btn-ghost"
-            style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            aria-label="Edit task"
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
-          </button>
-          <button
-            onClick={() => onDelete(task.task_id)}
-            className="btn-ghost"
-            style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            aria-label="Delete task"
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-          </button>
-        </div>
+        {!readOnly && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flexShrink: 0 }}>
+            {onStartFocus && !task.completed && (
+              <button
+                onClick={() => onStartFocus(task)}
+                className="btn-ghost"
+                style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-cyan)' }}
+                title="Start focus timer"
+                aria-label="Start focus timer"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </button>
+            )}
+            <button
+              onClick={() => setIsEditing(true)}
+              className="btn-ghost"
+              style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              aria-label="Edit task"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+            </button>
+            <button
+              onClick={() => onDelete(task.task_id)}
+              className="btn-ghost"
+              style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              aria-label="Delete task"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

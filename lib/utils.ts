@@ -46,7 +46,11 @@ export function mergePipelineToTasks(
     qaMap.get(issue.task_id)!.push(issue);
   }
 
-  return stage_2_extract.items.map((item) => {
+  const itemsToMap = pipeline.stage_4_fuse?.merged_items && pipeline.stage_4_fuse.merged_items.length > 0
+    ? pipeline.stage_4_fuse.merged_items
+    : stage_2_extract.items;
+
+  return itemsToMap.map((item) => {
     const score = scoreMap.get(item.task_id);
     const rewrite = rewriteMap.get(item.task_id);
     const plan = planMap.get(item.task_id);

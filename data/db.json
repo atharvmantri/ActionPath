@@ -1,0 +1,48 @@
+{
+  "users": [
+    {
+      "id": "dnfqrxfr3",
+      "username": "work@atharv.me",
+      "passwordHash": "839ac3d7693bc5bc7c95d5b99d3365b28c0a0a90a572079dbef9737ee77f02ee",
+      "salt": "ccc9b006c58f6a2f039a984e198b7f2e"
+    }
+  ],
+  "data": {
+    "dnfqrxfr3": {
+      "tasks": [],
+      "completed_task_ids": [],
+      "streak": {
+        "current": 1,
+        "lastCompletedDate": "2026-06-15",
+        "best": 1
+      },
+      "mood_history": [
+        {
+          "date": "2026-06-15",
+          "mood": 3
+        }
+      ],
+      "effort_feedback": [
+        {
+          "task": "Write scholarship statement.",
+          "estimated_mins": 90,
+          "actual_mins": 30,
+          "submitted_at": "2026-06-15T11:56:20.253Z"
+        },
+        {
+          "task": "Ask teacher for recommendation.",
+          "estimated_mins": 15,
+          "actual_mins": 15,
+          "submitted_at": "2026-06-15T11:56:28.677Z"
+        },
+        {
+          "task": "Request school transcript.",
+          "estimated_mins": 10,
+          "actual_mins": 10,
+          "submitted_at": "2026-06-15T11:56:31.613Z"
+        }
+      ],
+      "pipeline_result": null
+    }
+  }
+}

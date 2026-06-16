@@ -2,9 +2,12 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { DEMO_EMAILS } from '@/data/demo-emails';
+import VoiceInput from './VoiceInput';
+import ClassroomImport from './ClassroomImport';
+import ForwardingPanel from './ForwardingPanel';
 
 interface InputAreaProps {
-  onSubmit: (text: string) => void;
+  onSubmit: (text: string | string[]) => void;
   isProcessing: boolean;
 }
 
@@ -16,49 +19,67 @@ export default function InputArea({ onSubmit, isProcessing }: InputAreaProps) {
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
 
-  const handleFileRead = useCallback(async (file: File) => {
-    setFileName(file.name);
+  const handleVoiceTranscript = useCallback((newText: string) => {
+    setText((prev) => (prev ? prev + ' ' + newText : newText));
+  }, []);
 
-    if (file.type === 'application/pdf') {
-      // For PDF, we'd use pdfjs-dist. For simplicity in the demo,
-      // we'll read as text and let the user know if it fails.
-      try {
-        const arrayBuffer = await file.arrayBuffer();
-        // Dynamic import to avoid SSR issues
-        const pdfjsLib = await import('pdfjs-dist');
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-        let fullText = '';
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          const pageText = content.items.map((item) => ('str' in item ? (item as Record<string, unknown>).str as string : '')).join(' ');
-          fullText += pageText + '\n';
+  const handleFilesRead = useCallback(async (files: File[]) => {
+    const targetFiles = files.slice(0, 3);
+    setFileName(`${targetFiles.length} file(s) selected`);
+
+    const readPromises = targetFiles.map(async (file) => {
+      if (file.type === 'application/pdf') {
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const pdfjsLib = await import('pdfjs-dist');
+          pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          let fullText = '';
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const pageText = content.items.map((item) => ('str' in item ? (item as Record<string, unknown>).str as string : '')).join(' ');
+            fullText += pageText + '\n';
+          }
+          return fullText.trim();
+        } catch {
+          return await file.text();
         }
-        setText(fullText.trim());
-      } catch {
-        // Fallback: try reading as text
-        const textContent = await file.text();
-        setText(textContent);
+      } else {
+        return await file.text();
       }
+    });
+
+    const texts = await Promise.all(readPromises);
+    if (texts.length === 1) {
+      setText(texts[0]);
+      setFileName(targetFiles[0].name);
     } else {
-      // .txt, .eml, .html — read as text
-      const textContent = await file.text();
-      setText(textContent);
+      setText(`[Batch of ${texts.length} files loaded]`);
+      (window as any)._batchTexts = texts;
     }
   }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setDragOver(false);
-    const file = e.dataTransfer.files[0];
-    if (file) handleFileRead(file);
-  }, [handleFileRead]);
+    const files = e.dataTransfer.files ? Array.from(e.dataTransfer.files) : [];
+    if (files.length > 0) handleFilesRead(files);
+  }, [handleFilesRead]);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setDragOver(true);
   }, []);
+
+  const handleProcessClick = () => {
+    if ((window as any)._batchTexts && text === `[Batch of ${(window as any)._batchTexts.length} files loaded]`) {
+      onSubmit((window as any)._batchTexts);
+      (window as any)._batchTexts = null;
+    } else {
+      onSubmit(text);
+    }
+  };
 
   return (
     <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
@@ -75,6 +96,9 @@ export default function InputArea({ onSubmit, isProcessing }: InputAreaProps) {
           transition: 'all 0.3s ease',
         }}
       >
+        <div style={{ position: 'absolute', right: '16px', top: '16px', zIndex: 10 }}>
+          <VoiceInput onTranscript={handleVoiceTranscript} disabled={isProcessing} />
+        </div>
         <textarea
           id="email-input"
           value={text}
@@ -89,7 +113,7 @@ export default function InputArea({ onSubmit, isProcessing }: InputAreaProps) {
             color: 'var(--text-primary)',
             fontSize: '0.875rem',
             lineHeight: 1.7,
-            padding: '20px',
+            padding: '20px 60px 20px 20px',
             resize: 'vertical',
             outline: 'none',
             fontFamily: 'Inter, sans-serif',
@@ -125,8 +149,8 @@ export default function InputArea({ onSubmit, isProcessing }: InputAreaProps) {
         flexWrap: 'wrap',
         gap: '12px',
       }}>
-        {/* Left: file upload + word count */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Left: file upload + Classroom + word count */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <button
             onClick={() => fileInputRef.current?.click()}
             className="btn-secondary"
@@ -136,14 +160,20 @@ export default function InputArea({ onSubmit, isProcessing }: InputAreaProps) {
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></svg>
             Upload File
           </button>
+          
+          <ClassroomImport onImport={onSubmit} disabled={isProcessing} />
+
+          <ForwardingPanel onForward={onSubmit} disabled={isProcessing} />
+
           <input
             ref={fileInputRef}
             type="file"
+            multiple
             accept=".pdf,.txt,.eml,.html,.htm"
             style={{ display: 'none' }}
             onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) handleFileRead(file);
+              const files = e.target.files ? Array.from(e.target.files) : [];
+              if (files.length > 0) handleFilesRead(files);
             }}
           />
           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -158,7 +188,7 @@ export default function InputArea({ onSubmit, isProcessing }: InputAreaProps) {
 
         {/* Right: process button */}
         <button
-          onClick={() => onSubmit(text)}
+          onClick={handleProcessClick}
           className="btn-primary"
           disabled={isProcessing || text.trim().length < 10}
           style={{

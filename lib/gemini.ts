@@ -23,8 +23,7 @@ async function callGemini(
   systemPrompt: string,
   userPrompt: string
 ): Promise<string> {
-  // Map marketing/PRD model names to real API identifiers
-  const apiModel = model === 'gemini-3.1-flash-lite' ? 'gemini-2.0-flash-lite' : model;
+  const apiModel = model;
 
   const response = await ai.models.generateContent({
     model: apiModel,
@@ -152,16 +151,18 @@ export async function stage4Fuse(
   const systemPrompt = `You are a context fusion agent. Merge newly extracted tasks with the student's stored context.
 
 Your jobs:
-1. Take the extracted items and merge them with any existing student context
-2. Deduplicate: if a task matches one the student has already seen/completed, note it
-3. Detect recurring items (e.g., weekly newsletter format)
-4. Match tasks to student's known subjects
+1. Take the extracted items and merge them with any existing student context.
+2. Deduplicate: if a task matches one the student has already seen/completed, note it.
+3. Detect recurring items (e.g., weekly assignments, recurring meetings, repetitive updates) and set "is_recurring": true on those specific items in "merged_items".
+4. Match tasks to student's known subjects.
 
 Return JSON:
 {
-  "merged_items": [...], // the extracted items, possibly annotated
+  "merged_items": [
+    // same structure as extracted items, but with "is_recurring": true/false added
+  ],
   "deduplicated": ["description of what was deduped"],
-  "recurring_detected": true/false,
+  "recurring_detected": true, // true if any recurring item is found
   "student_subject_match": { "SubjectName": ["t1", "t2"] }
 }
 

@@ -3,7 +3,7 @@
 // Privacy by design: only task completion state stored, never content
 // ============================================================
 
-import { StudentContext, ActionTask } from './schema';
+import { StudentContext, ActionTask, EffortFeedback } from './schema';
 
 const KEYS = {
   COMPLETED_TASKS: 'actionpath_completed_tasks',
@@ -13,6 +13,7 @@ const KEYS = {
   THEME: 'actionpath_theme',
   ONBOARDING_SEEN: 'actionpath_onboarding_seen',
   LAST_PIPELINE_RESULT: 'actionpath_last_result',
+  EFFORT_FEEDBACK: 'actionpath_effort_feedback',
 } as const;
 
 // ---- Helpers ----
@@ -178,4 +179,32 @@ export function saveLastResult(result: unknown): void {
 
 export function loadLastResult<T>(): T | null {
   return safeGet<T | null>(KEYS.LAST_PIPELINE_RESULT, null);
+}
+
+// ---- Effort Feedback ----
+export function loadEffortFeedback(): EffortFeedback[] {
+  return safeGet<EffortFeedback[]>(KEYS.EFFORT_FEEDBACK, []);
+}
+
+export function saveEffortFeedback(entry: EffortFeedback): void {
+  const current = loadEffortFeedback();
+  current.push(entry);
+  safeSet(KEYS.EFFORT_FEEDBACK, current);
+
+  // Sync to student context as well so it is sent in api calls
+  const ctx = loadStudentContext();
+  ctx.effort_feedback = current;
+  saveStudentContext(ctx);
+}
+
+// ---- Accessibility ----
+export function loadAccessibility(): { highContrast: boolean; largeText: boolean } {
+  return safeGet<{ highContrast: boolean; largeText: boolean }>('actionpath_accessibility', {
+    highContrast: false,
+    largeText: false,
+  });
+}
+
+export function saveAccessibility(settings: { highContrast: boolean; largeText: boolean }): void {
+  safeSet('actionpath_accessibility', settings);
 }

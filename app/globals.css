@@ -501,3 +501,53 @@ body::before {
   background: var(--accent-blue);
   color: white;
 }
+
+/* ============================================================
+   Accessibility Mode CSS Overrides
+   ============================================================ */
+
+[data-a11y-contrast="high"] {
+  --bg-primary: #000000 !important;
+  --bg-secondary: #000000 !important;
+  --bg-card: #000000 !important;
+  --bg-glass: #121212 !important;
+  --bg-glass-hover: #1e1e1e !important;
+
+  --accent-blue: #00ffff !important; /* High contrast bright cyan */
+  --accent-blue-hover: #33ffff !important;
+  --accent-blue-glow: rgba(0, 255, 255, 0.2) !important;
+  --accent-purple: #ff00ff !important; /* Bright Magenta */
+  --accent-cyan: #00ffff !important;
+  --accent-emerald: #00ff00 !important; /* Bright Green */
+  --accent-amber: #ffff00 !important; /* Bright Yellow */
+  --accent-rose: #ff3333 !important;
+  --accent-orange: #ffcc00 !important;
+
+  --text-primary: #ffffff !important;
+  --text-secondary: #f0f0f0 !important;
+  --text-muted: #cccccc !important;
+  --text-accent: #00ffff !important;
+
+  --border-subtle: #ffffff !important;
+  --border-medium: #ffffff !important;
+  --border-glow: #00ffff !important;
+}
+
+[data-a11y-contrast="high"] .glass-card,
+[data-a11y-contrast="high"] .glass-card-static {
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+[data-a11y-contrast="high"] .task-checkbox {
+  border: 2px solid #ffffff !important;
+}
+
+[data-a11y-contrast="high"] .task-checkbox:checked {
+  background: #00ffff !important;
+  border-color: #00ffff !important;
+}
+
+[data-a11y-size="large"] {
+  font-size: 112% !important;
+}
