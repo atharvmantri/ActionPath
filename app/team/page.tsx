@@ -341,10 +341,14 @@ export default function TeamPage() {
           <div className="team-card">
             <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
               <div className="team-avatar" style={{
-                background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-purple))',
-                boxShadow: '0 0 20px rgba(10, 132, 255, 0.25)'
+                boxShadow: '0 0 20px rgba(10, 132, 255, 0.25)',
+                overflow: 'hidden',
               }}>
-                AM
+                <img 
+                  src="https://www.atharv.me/assets/profile-ZmNqRCZO.jpeg" 
+                  alt="Atharv Mantri" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
               </div>
               <div>
                 <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
