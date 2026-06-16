@@ -4,10 +4,183 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { loadTheme, saveTheme, loadAccessibility, saveAccessibility } from '@/lib/storage';
 
+interface Stage {
+  step: string;
+  title: string;
+  subtitle: string;
+  desc: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+const HorizontalArrow = ({ isActive, color }: { isActive: boolean; color: string }) => (
+  <div
+    className={`pipeline-arrow-horizontal ${isActive ? 'active' : ''}`}
+    style={isActive ? { color } : undefined}
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </svg>
+  </div>
+);
+
+const VerticalArrow = ({ isActive, color }: { isActive: boolean; color: string }) => (
+  <div
+    className={`pipeline-arrow-vertical ${isActive ? 'active' : ''}`}
+    style={isActive ? { color } : undefined}
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 5v14" />
+      <path d="m6 13 6 6 6-6" />
+    </svg>
+  </div>
+);
+
+const ReturnArrow = ({ isActive }: { isActive: boolean }) => (
+  <div
+    className={`pipeline-arrow-return ${isActive ? 'active' : ''}`}
+    style={isActive ? { color: 'var(--accent-emerald)' } : undefined}
+  >
+    <svg width="100" height="80" viewBox="0 0 100 80" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ overflow: 'visible' }}>
+      <path
+        d="M 10 20 C 90 20, 90 60, -30 60"
+        strokeDasharray={isActive ? 'none' : '4 4'}
+        style={{
+          transition: 'stroke-dasharray 0.3s ease',
+        }}
+      />
+      <polygon
+        points="-20 54, -32 60, -20 66"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
+);
+
+function PipelineCard({
+  stage,
+  index,
+  activeAgentIndex,
+}: {
+  stage: Stage;
+  index: number;
+  activeAgentIndex: number;
+}) {
+  const isActive = activeAgentIndex === index;
+  const isQA = index === 6;
+
+  return (
+    <div
+      className={`pipeline-card ${isQA ? 'qa-stage-special' : ''} ${isActive ? 'active-stage' : ''}`}
+      style={{
+        borderColor: isActive ? stage.color : isQA ? 'var(--accent-amber)' : 'var(--border-subtle)',
+        boxShadow: isActive
+          ? `0 0 25px ${stage.color}40`
+          : isQA
+          ? '0 0 20px rgba(255, 159, 10, 0.15)'
+          : 'var(--shadow-sm)',
+        transform: isActive
+          ? 'translateY(-6px) scale(1.03)'
+          : isQA
+          ? 'translateY(0) scale(1.01)'
+          : undefined,
+      }}
+    >
+      {isQA && (
+        <div style={{
+          position: 'absolute',
+          top: '-10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'linear-gradient(135deg, var(--accent-orange), var(--accent-amber))',
+          color: '#000000',
+          fontSize: '0.62rem',
+          fontWeight: 800,
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase',
+          padding: '3px 10px',
+          borderRadius: '9999px',
+          boxShadow: '0 2px 8px rgba(255, 159, 10, 0.3)',
+          whiteSpace: 'nowrap',
+          zIndex: 10,
+        }}>
+          Final Verification Stage
+        </div>
+      )}
+
+      <div style={{
+        position: 'absolute',
+        top: '16px',
+        right: '16px',
+        fontSize: '2.5rem',
+        fontWeight: 900,
+        opacity: 0.04,
+        lineHeight: 1,
+        fontFamily: 'monospace',
+      }}>
+        0{stage.step}
+      </div>
+
+      <div style={{
+        width: '40px',
+        height: '40px',
+        borderRadius: '10px',
+        background: `${stage.color}15`,
+        color: stage.color,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: '8px',
+        transition: 'all 0.3s ease',
+        transform: isActive ? 'scale(1.1)' : undefined,
+        boxShadow: isActive ? `0 0 10px ${stage.color}33` : undefined,
+      }}>
+        {stage.icon}
+      </div>
+
+      <div>
+        <h4 style={{
+          fontSize: '1rem',
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+        }}>
+          {stage.title}
+        </h4>
+        <span style={{
+          fontSize: '0.72rem',
+          fontWeight: 600,
+          color: stage.color,
+          letterSpacing: '0.02em',
+          textTransform: 'uppercase',
+        }}>
+          {stage.subtitle}
+        </span>
+      </div>
+
+      <p style={{
+        fontSize: '0.82rem',
+        color: 'var(--text-secondary)',
+        lineHeight: 1.5,
+      }}>
+        {stage.desc}
+      </p>
+    </div>
+  );
+}
+
 export default function LandingPage() {
   const [theme, setThemeState] = useState<'dark' | 'light'>('dark');
   const [highContrast, setHighContrast] = useState(false);
   const [largeText, setLargeText] = useState(false);
+  const [activeAgentIndex, setActiveAgentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveAgentIndex((prev) => (prev + 1) % 7);
+    }, 1500);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const access = loadAccessibility();
@@ -468,81 +641,47 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '16px',
-          }}>
-            {pipelineStages.map((stage) => (
-              <div
-                key={stage.title}
-                className="glass-card"
-                style={{
-                  padding: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: 'var(--radius-lg)',
-                  position: 'relative',
-                  background: 'var(--bg-secondary)',
-                }}
-              >
-                <div style={{
-                  position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  fontSize: '2.5rem',
-                  fontWeight: 900,
-                  opacity: 0.04,
-                  lineHeight: 1,
-                  fontFamily: 'monospace',
-                }}>
-                  0{stage.step}
-                </div>
-
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  background: `${stage.color}15`,
-                  color: stage.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '8px',
-                }}>
-                  {stage.icon}
-                </div>
-
-                <div>
-                  <h4 style={{
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    color: 'var(--text-primary)',
-                  }}>
-                    {stage.title}
-                  </h4>
-                  <span style={{
-                    fontSize: '0.72rem',
-                    fontWeight: 600,
-                    color: stage.color,
-                    letterSpacing: '0.02em',
-                    textTransform: 'uppercase',
-                  }}>
-                    {stage.subtitle}
-                  </span>
-                </div>
-
-                <p style={{
-                  fontSize: '0.82rem',
-                  color: 'var(--text-secondary)',
-                  lineHeight: 1.5,
-                }}>
-                  {stage.desc}
-                </p>
+          <div className="pipeline-showcase">
+            {/* Desktop 4+3 Layout */}
+            <div className="pipeline-desktop-layout">
+              {/* Row 1: Classify, Extract, Score, Fuse */}
+              <div className="pipeline-row">
+                {pipelineStages.slice(0, 4).map((stage, idx) => (
+                  <React.Fragment key={stage.title}>
+                    <div className="pipeline-card-wrapper">
+                      <PipelineCard stage={stage} index={idx} activeAgentIndex={activeAgentIndex} />
+                      {idx < 3 && <HorizontalArrow isActive={activeAgentIndex === idx} color={stage.color} />}
+                      {idx === 3 && <ReturnArrow isActive={activeAgentIndex === 3 || activeAgentIndex === 4} />}
+                    </div>
+                  </React.Fragment>
+                ))}
               </div>
-            ))}
+
+              {/* Row 2: Plan, Rewrite, QA (Centered) */}
+              <div className="pipeline-row" style={{ marginTop: '16px' }}>
+                {pipelineStages.slice(4, 7).map((stage, idx) => {
+                  const globalIdx = idx + 4;
+                  return (
+                    <React.Fragment key={stage.title}>
+                      <div className="pipeline-card-wrapper">
+                        <PipelineCard stage={stage} index={globalIdx} activeAgentIndex={activeAgentIndex} />
+                        {idx < 2 && <HorizontalArrow isActive={activeAgentIndex === globalIdx} color={stage.color} />}
+                      </div>
+                    </React.Fragment>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Mobile Layout (Vertical Pipeline) */}
+            <div className="pipeline-mobile-layout">
+              {pipelineStages.map((stage, idx) => (
+                <React.Fragment key={stage.title}>
+                  <PipelineCard stage={stage} index={idx} activeAgentIndex={activeAgentIndex} />
+                  {idx < 6 && <VerticalArrow isActive={activeAgentIndex === idx} color={stage.color} />}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         </section>
 

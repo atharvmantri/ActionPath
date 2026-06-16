@@ -551,3 +551,153 @@ body::before {
 [data-a11y-size="large"] {
   font-size: 112% !important;
 }
+
+/* ============================================================
+   ActionPath — 7 AI Agent Pipeline Showcase Redesign
+   ============================================================ */
+
+.pipeline-showcase {
+  margin-top: 48px;
+  width: 100%;
+}
+
+.pipeline-desktop-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+.pipeline-mobile-layout {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+}
+
+@media (max-width: 1023px) {
+  .pipeline-desktop-layout {
+    display: none;
+  }
+  .pipeline-mobile-layout {
+    display: flex;
+  }
+}
+
+.pipeline-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+}
+
+.pipeline-card-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.pipeline-card {
+  width: 250px;
+  min-height: 220px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  position: relative;
+  background: var(--bg-secondary);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+
+.pipeline-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-md);
+}
+
+/* Active Stage Highlight */
+.pipeline-card.active-stage {
+  transform: translateY(-6px) scale(1.03);
+  z-index: 10;
+}
+
+/* QA Stage Special Styling */
+.pipeline-card.qa-stage-special {
+  border: 2px solid var(--accent-amber) !important;
+  box-shadow: 0 0 20px rgba(255, 159, 10, 0.2);
+}
+
+.pipeline-card.qa-stage-special.active-stage {
+  box-shadow: 0 0 35px rgba(255, 159, 10, 0.5) !important;
+  transform: translateY(-8px) scale(1.05);
+}
+
+/* Connecting Arrows */
+.pipeline-arrow-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  opacity: 0.3;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+}
+
+.pipeline-arrow-horizontal.active {
+  color: var(--accent-blue);
+  opacity: 0.95;
+  transform: scale(1.2);
+}
+
+.pipeline-arrow-return {
+  position: absolute;
+  right: -56px;
+  bottom: -56px;
+  width: 96px;
+  height: 80px;
+  color: var(--text-muted);
+  opacity: 0.3;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  z-index: 5;
+  display: none;
+}
+
+.pipeline-arrow-return.active {
+  opacity: 0.95;
+}
+
+@media (min-width: 1024px) {
+  .pipeline-arrow-return {
+    display: block !important;
+  }
+}
+
+.pipeline-arrow-vertical {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  opacity: 0.3;
+  width: 24px;
+  height: 24px;
+  margin: 8px 0;
+  transition: all 0.4s ease;
+}
+
+.pipeline-arrow-vertical.active {
+  color: var(--accent-blue);
+  opacity: 0.95;
+  transform: scale(1.2);
+}
+
