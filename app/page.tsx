@@ -602,7 +602,7 @@ export default function LandingPage() {
             <p>The gap between receiving information and taking action is where students with ADHD struggle most.</p>
           </div>
 
-          <div className="before-after-section">
+          <div className="before-after-section" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
             {/* BEFORE */}
             <div className="before-after-card before-card">
               <span className="before-after-label before-label">Before ActionPath</span>
@@ -636,6 +636,52 @@ export default function LandingPage() {
                 <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Confident action</span>
               </div>
             </div>
+
+            {/* PIPELINE METRIC */}
+            <div className="before-after-card" style={{
+              background: 'var(--bg-secondary)',
+              borderLeft: '4px solid var(--accent-blue)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              padding: '32px',
+            }}>
+              <span className="before-after-label" style={{ background: 'var(--accent-blue-glow)', color: 'var(--accent-blue)' }}>Pipeline Output</span>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1, minWidth: '24px' }}>1</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>School Email Input</span>
+                </div>
+                
+                <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '6px', color: 'var(--text-muted)' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                </div>
+                
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-blue)', lineHeight: 1, minWidth: '24px' }}>3</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Tasks Extracted</span>
+                </div>
+                
+                <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '6px', color: 'var(--text-muted)' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-purple)', lineHeight: 1, minWidth: '24px' }}>2</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Deadlines Identified</span>
+                </div>
+                
+                <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '6px', color: 'var(--text-muted)' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-emerald)', lineHeight: 1, minWidth: '24px' }}>1</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Action Plan Generated</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -643,9 +689,6 @@ export default function LandingPage() {
             SECTION 3: MEET MAYA
             ================================================================ */}
         <section className="maya-section">
-          <div className="section-heading">
-            <h3>Meet Maya</h3>
-          </div>
 
           <div className="maya-card" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -856,7 +899,35 @@ export default function LandingPage() {
         </section>
 
         {/* ================================================================
-            SECTION 6: WHY AI?
+            SECTION 6: ARCHITECTURE VISUALIZATION
+            ================================================================ */}
+        <section className="architecture-section">
+          <div className="section-heading">
+            <h3>System Architecture</h3>
+            <p>A simplified view of how ActionPath transforms information into action.</p>
+          </div>
+
+          <div className="architecture-flow">
+            {[
+              { title: 'School Email', sub: 'Raw, unstructured input', highlight: false },
+              { title: '7 AI Agents', sub: 'Multi-agent pipeline', highlight: true },
+              { title: 'Structured JSON', sub: 'Machine-readable output', highlight: false },
+              { title: 'Action Checklist', sub: 'Human-readable tasks', highlight: false },
+              { title: 'Student Action', sub: 'Confidence to begin', highlight: false },
+            ].map((node, idx) => (
+              <React.Fragment key={node.title}>
+                <div className={`architecture-node ${node.highlight ? 'node-highlight' : ''}`}>
+                  <h4>{node.title}</h4>
+                  <p>{node.sub}</p>
+                </div>
+                {idx < 4 && <div className="architecture-connector" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION 7: WHY AI?
             ================================================================ */}
         <section className="why-ai-section">
           <div className="section-heading">
@@ -900,34 +971,6 @@ export default function LandingPage() {
                 Action Plan
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* ================================================================
-            SECTION 7: ARCHITECTURE VISUALIZATION
-            ================================================================ */}
-        <section className="architecture-section">
-          <div className="section-heading">
-            <h3>System Architecture</h3>
-            <p>A simplified view of how ActionPath transforms information into action.</p>
-          </div>
-
-          <div className="architecture-flow">
-            {[
-              { title: 'School Email', sub: 'Raw, unstructured input', highlight: false },
-              { title: '7 AI Agents', sub: 'Multi-agent pipeline', highlight: true },
-              { title: 'Structured JSON', sub: 'Machine-readable output', highlight: false },
-              { title: 'Action Checklist', sub: 'Human-readable tasks', highlight: false },
-              { title: 'Student Action', sub: 'Confidence to begin', highlight: false },
-            ].map((node, idx) => (
-              <React.Fragment key={node.title}>
-                <div className={`architecture-node ${node.highlight ? 'node-highlight' : ''}`}>
-                  <h4>{node.title}</h4>
-                  <p>{node.sub}</p>
-                </div>
-                {idx < 4 && <div className="architecture-connector" />}
-              </React.Fragment>
-            ))}
           </div>
         </section>
 
@@ -995,35 +1038,45 @@ export default function LandingPage() {
 
           <div className="responsible-ai-cards">
             {/* Risk Card */}
-            <div className="rai-card risk">
-              <div className="rai-card-icon" style={{ color: 'var(--accent-rose)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><AlertTriangleIcon size={28} /></div>
-              <h4>Risk</h4>
-              <p>AI may misinterpret a deadline or extract incorrect information from an ambiguous email.</p>
+            <div className="rai-card risk" style={{
+              background: 'rgba(255, 69, 58, 0.04)',
+              borderColor: 'rgba(255, 69, 58, 0.25)',
+              boxShadow: '0 4px 20px rgba(255, 69, 58, 0.05)',
+            }}>
+              <div className="rai-card-icon" style={{ color: 'var(--accent-rose)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><AlertTriangleIcon size={32} /></div>
+              <h4 style={{ color: 'var(--accent-rose)', fontSize: '1.2rem', fontWeight: 800, marginBottom: '12px' }}>Risk</h4>
+              <p style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.92rem', lineHeight: 1.5 }}>
+                Incorrect deadline extraction
+              </p>
             </div>
 
             {/* Mitigation Card */}
-            <div className="rai-card mitigation">
-              <div className="rai-card-icon" style={{ color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ShieldCheckIcon size={28} /></div>
-              <h4>Mitigation</h4>
-              <ul>
-                <li>Source sentence verification</li>
-                <li>Confidence scores on every task</li>
-                <li>QA agent review layer</li>
-                <li>Original text always visible</li>
+            <div className="rai-card mitigation" style={{
+              background: 'rgba(10, 132, 255, 0.04)',
+              borderColor: 'rgba(10, 132, 255, 0.25)',
+              boxShadow: '0 4px 20px rgba(10, 132, 255, 0.05)',
+            }}>
+              <div className="rai-card-icon" style={{ color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ShieldCheckIcon size={32} /></div>
+              <h4 style={{ color: 'var(--accent-blue)', fontSize: '1.2rem', fontWeight: 800, marginBottom: '12px' }}>Mitigation</h4>
+              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+                <li style={{ fontSize: '0.92rem', color: 'var(--text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>Source verification</li>
+                <li style={{ fontSize: '0.92rem', color: 'var(--text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>Confidence scores</li>
+                <li style={{ fontSize: '0.92rem', color: 'var(--text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>QA review</li>
               </ul>
             </div>
 
             {/* Human Control Card */}
-            <div className="rai-card control">
-              <div className="rai-card-icon" style={{ color: 'var(--accent-emerald)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><UserCheckIcon size={28} /></div>
-              <h4>Human Control</h4>
-              <ul>
-                <li>ActionPath never submits forms</li>
-                <li>Never pays fees</li>
-                <li>Never makes decisions</li>
-                <li>Never accesses accounts</li>
-              </ul>
-              <p className="rai-emphasis">Student remains in control.</p>
+            <div className="rai-card control" style={{
+              background: 'rgba(48, 209, 88, 0.04)',
+              borderColor: 'rgba(48, 209, 88, 0.25)',
+              boxShadow: '0 4px 20px rgba(48, 209, 88, 0.05)',
+            }}>
+              <div className="rai-card-icon" style={{ color: 'var(--accent-emerald)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><UserCheckIcon size={32} /></div>
+              <h4 style={{ color: 'var(--accent-emerald)', fontSize: '1.2rem', fontWeight: 800, marginBottom: '12px' }}>Human Control</h4>
+              <p style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.92rem', lineHeight: 1.5, marginBottom: '8px' }}>
+                Student approves every action
+              </p>
+              <p className="rai-emphasis" style={{ margin: 0, fontWeight: 700, color: 'var(--accent-emerald)', fontSize: '0.82rem' }}>Student remains in control.</p>
             </div>
           </div>
         </section>
@@ -1042,14 +1095,14 @@ export default function LandingPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
             gap: '24px',
           }}>
-            {/* Trust 1: Original Source Sentence */}
+            {/* Trust 1: Original Source */}
             <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)', borderLeft: '3px solid var(--accent-blue)' }}>
               <div style={{ color: 'var(--accent-emerald)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircleIcon size={20} />
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Original Source Sentence</h4>
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Original Source</h4>
               </div>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Verify exactly where a task came from. ActionPath links every extracted action item back to the original sentence in the school email.
+                See exactly where each task came from.
               </p>
             </div>
 
@@ -1060,7 +1113,7 @@ export default function LandingPage() {
                 <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Confidence Score</h4>
               </div>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Know the certainty level. Each task is scored based on linguistic clarity, helping you spot ambiguous instructions that need check-in.
+                Know which items may need review.
               </p>
             </div>
 
@@ -1071,18 +1124,18 @@ export default function LandingPage() {
                 <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Verification Status</h4>
               </div>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Checked by the pipeline. No task is added without going through our multi-agent sanity checks to prevent false alarms and hallucinations.
+                Every task passes through QA checks.
               </p>
             </div>
 
-            {/* Trust 4: Traceable Reasoning Chain */}
+            {/* Trust 4: Traceable Reasoning */}
             <div className="glass-card-static" style={{ padding: '24px', background: 'var(--bg-secondary)', borderLeft: '3px solid var(--accent-orange)' }}>
               <div style={{ color: 'var(--accent-emerald)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <CheckCircleIcon size={20} />
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Traceable Reasoning Chain</h4>
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>Traceable Reasoning</h4>
               </div>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                Explainable AI in action. Review the logical steps the agent pipeline took to arrive at a task's priority, effort, and start cue.
+                Understand why a task was prioritized.
               </p>
             </div>
           </div>
@@ -1159,11 +1212,11 @@ export default function LandingPage() {
 
           <div className="impact-grid">
             {[
-              { icon: <PuzzleIcon size={24} />, label: 'Reduces confusion from complex communications' },
-              { icon: <CalendarIcon size={24} />, label: 'Improves deadline visibility and awareness' },
-              { icon: <BrainIcon size={24} />, label: 'Supports executive function and task initiation' },
-              { icon: <RocketIcon size={24} />, label: 'Promotes independent action and self-advocacy' },
-              { icon: <ZapIcon size={24} />, label: 'Builds confidence through small, achievable wins' },
+              { icon: <PuzzleIcon size={24} />, label: 'Less overwhelm' },
+              { icon: <CalendarIcon size={24} />, label: 'Fewer missed deadlines' },
+              { icon: <BrainIcon size={24} />, label: 'Earlier intervention' },
+              { icon: <RocketIcon size={24} />, label: 'Greater independence' },
+              { icon: <ZapIcon size={24} />, label: 'More confidence' },
             ].map((item) => (
               <div className="impact-item" key={item.label}>
                 <div className="impact-icon" style={{ color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{item.icon}</div>
@@ -1173,7 +1226,7 @@ export default function LandingPage() {
           </div>
 
           <div className="impact-scale-statement">
-            <p>&ldquo;Designed for millions of students who struggle to translate information into action.&rdquo;</p>
+            <p>&ldquo;Designed for students who struggle to turn information into action.&rdquo;</p>
           </div>
         </section>
 
