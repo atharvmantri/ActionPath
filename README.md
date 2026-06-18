@@ -229,14 +229,35 @@ ActionPath runs a collaborative, multi-agent pipeline powered entirely by the Go
 
 ### Stretch Features (Implemented)
 * **Voice Dictation Parser**: Converts spoken assignments or notes into structured tasks using the Web Speech API and Gemini-driven transcription.
-* **Google Classroom Integration**: Secure OAuth workflow to pull course updates directly from the student's Classroom feed without copy-pasting.
+* **Google Classroom Integration (Simulated Prototype)**: Simulates a Google account link and OAuth popup to pull preloaded coursework/announcements directly into the planner dashboard for demonstration purposes without production API dependencies.
 * **Mood Check-In**: A quick daily scale (1-5) evaluation that dynamically scales the maximum daily task count to prevent burnout on low-energy days.
 * **Streak Tracker**: Tracks consecutive days of completing the "Today" list to build positive momentum.
 * **Pomodoro Focus Timer**: Integrated 25-minute timer directly on tasks that checks off tasks upon completion.
 * **Parent & Counselor View**: Generates a secure, read-only URL showing the current checklist without exposing private text inputs or logging credentials.
 * **Boilerplate Suppression**: Auto-detects recurring school newsletter templates to hide repetitive headers, boilerplate text, and low-priority updates.
-* **Email Forwarding Panel**: Simulates an automated inbox setup where forwarded emails are routed directly into structured checklists.
+* **Email Forwarding Panel (Simulated Sandbox)**: Simulates an automated inbound mail setup where pre-configured templates (or custom inputs) can be "forwarded" to showcase automated ingestion without setting up an external mail server.
 * **Accessibility Settings**: Dynamic controls for high contrast mode, keyboard navigation, and larger text scaling options.
+
+---
+
+## Feature Operational Status (Real vs. Simulated Sandbox)
+
+To provide full transparency for technical reviewers and judges, the table below outlines which parts of ActionPath are fully operational with live API/client-side integrations, and which components are simulated sandboxes or local prototypes.
+
+| Feature Area | Status | Implementation Details |
+| :--- | :--- | :--- |
+| **7-Stage Gemini Agent Pipeline** | 🟢 **Fully Operational** | Real-time multi-agent processing using the official `@google/genai` SDK and `gemini-3.1-flash-lite`. Operates on live text input, PDFs, and files. |
+| **Multi-Format Input & File Parsers** | 🟢 **Fully Operational** | Runs client-side parsing of text, `.txt`, `.eml`, `.html`, and PDF attachments via `pdfjs-dist` to extract raw text content. |
+| **ADHD-Optimized Formatting & UI Cues** | 🟢 **Fully Operational** | Renders dynamic time budgets, start cues, 7-day timeline view, local storage persistence, and interactive source sentence tooltips. |
+| **Voice Dictation Parser** | 🟢 **Fully Operational** | Leverages the browser Web Speech API for real-time dictation, passing transcription inputs directly into the Gemini pipeline. |
+| **Calendar Export** | 🟢 **Fully Operational** | Client-side generation of standardized `.ics` files using the `ics` package, allowing immediate integration with calendar applications. |
+| **Parent & Counselor View** | 🟢 **Fully Operational** | Generates a shareable URL containing a compressed, URL-safe Base64 serialized payload of task lists. Zero-dependency deserialization happens entirely on the client side. |
+| **Mood Check-In & Streak Tracker** | 🟢 **Fully Operational** | Local storage state tracking for gamified streaks and dynamic budget throttling based on the daily self-assessments. |
+| **Google Classroom Integration** | 🟡 **Simulated Prototype** | Simulates a Google OAuth sign-in flow and retrieves mock student courses/assignments (e.g., Biology Period 2 coursework) to demonstrate the LMS import experience without external API dependencies. |
+| **Email Forwarding Panel** | 🟡 **Simulated Sandbox** | Simulates an inbound routing mailbox (`student-784@inbound.actionpath.app`). Provides preloaded school newsletters and closure advisories to demonstrate automated ingestion without a production mail server. |
+
+> [!NOTE]
+> All simulated features are explicitly labeled as **"Demo"** or **"Sandbox Mode"** directly within the application's user interface to ensure clarity and user transparency.
 
 ---
 
