@@ -88,7 +88,7 @@ ActionPath runs a collaborative, multi-agent pipeline powered entirely by the Go
 ```
 
 ### Stage 2: Entity & Context Extraction
-* **Primary Model**: `gemini-3.1-flash-lite` (Designed for `gemini-3.1-pro-preview` for high-complexity text)
+* **Primary Model**: `gemini-3.1-flash-lite`
 * **Purpose**: Isolates every individual task, deadline, and context point. For every extracted task, it links the exact source sentence verbatim to ground the AI and enable verification.
 * **Output Schema**:
 ```json
