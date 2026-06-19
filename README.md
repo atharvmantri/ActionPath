@@ -112,7 +112,7 @@ ActionPath runs a collaborative, multi-agent pipeline powered entirely by the Go
 ```
 
 ### Stage 3: Scoring & Collision Agent
-* **Primary Model**: `gemini-3.1-flash-lite` (Designed for `gemini-3.5-flash` for multi-step logic)
+* **Primary Model**: `gemini-3.1-flash-lite`
 * **Purpose**: Assigns weight indicators to tasks and flags deadline collisions (three or more tasks scheduled on the same calendar day), prompting automated rescheduling suggestions.
 * **Output Schema**:
 ```json
@@ -164,7 +164,7 @@ ActionPath runs a collaborative, multi-agent pipeline powered entirely by the Go
 ```
 
 ### Stage 5: Day-by-Day Planning Agent
-* **Primary Model**: `gemini-3.1-flash-lite` (Designed for `gemini-3.5-flash`)
+* **Primary Model**: `gemini-3.1-flash-lite`
 * **Purpose**: Distributes tasks chronologically across four horizons: Today, Tomorrow, This Week, and Later. It enforces strict cognitive load-balancing rules (e.g., maximum of three high-effort items scheduled per day) and estimates time budgets.
 * **Output Schema**:
 ```json
@@ -184,7 +184,7 @@ ActionPath runs a collaborative, multi-agent pipeline powered entirely by the Go
 ```
 
 ### Stage 6: Language Rewriter Agent
-* **Primary Model**: `gemini-3.1-flash-lite` (Designed for `gemini-3.5-flash`)
+* **Primary Model**: `gemini-3.1-flash-lite`
 * **Purpose**: Addresses the initiation barrier. It rewrites task copy into calm, action-oriented syntax (maximum 12 words, beginning with an active verb) and creates a "Start Cue" (the exact first physical action required to begin).
 * **Output Schema**:
 ```json
