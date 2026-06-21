@@ -513,9 +513,6 @@ export default function TeamPage() {
         color: 'var(--text-muted)',
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <p>
-            <strong>ActionPath</strong> - Designed with privacy by design. All computations are handled locally.
-          </p>
           <p style={{ display: 'flex', gap: '16px', justifyContent: 'center', margin: '4px 0' }}>
             <Link href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Home</Link>
             <span>•</span>

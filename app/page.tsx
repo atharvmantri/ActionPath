@@ -647,33 +647,33 @@ export default function LandingPage() {
               padding: '32px',
             }}>
               <span className="before-after-label" style={{ background: 'var(--accent-blue-glow)', color: 'var(--accent-blue)' }}>Pipeline Output</span>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1, minWidth: '24px' }}>1</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>School Email Input</span>
                 </div>
-                
+
                 <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '6px', color: 'var(--text-muted)' }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
                 </div>
-                
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-blue)', lineHeight: 1, minWidth: '24px' }}>3</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Tasks Extracted</span>
                 </div>
-                
+
                 <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '6px', color: 'var(--text-muted)' }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-purple)', lineHeight: 1, minWidth: '24px' }}>2</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Deadlines Identified</span>
                 </div>
-                
+
                 <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '6px', color: 'var(--text-muted)' }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -1262,9 +1262,6 @@ export default function LandingPage() {
         color: 'var(--text-muted)',
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <p>
-            <strong>ActionPath</strong> - Designed with privacy by design. All computations are handled locally.
-          </p>
           <p style={{ display: 'flex', gap: '16px', justifyContent: 'center', margin: '4px 0' }}>
             <Link href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Home</Link>
             <span>•</span>
