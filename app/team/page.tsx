@@ -331,7 +331,7 @@ export default function TeamPage() {
             margin: '0 auto',
             lineHeight: 1.6,
           }}>
-            ActionPath is built with care to provide privacy-focused, accessible planning assistance for neurodiverse students, streamlining complex syllabus schedules into bite-sized actionable steps.
+            ActionPath is built with care to provide accessible planning assistance for neurodiverse students, streamlining complex syllabus schedules into bite-sized actionable steps.
           </p>
         </section>
 
@@ -362,7 +362,7 @@ export default function TeamPage() {
             </div>
 
             <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-              Lead architect and engineer behind ActionPath. Specializes in building highly responsive collaborative agent architectures, local-first client-side state engines, and designing tools that lower the cognitive friction of task management for neurodiverse minds.
+              Lead architect and engineer behind ActionPath. Specializes in building highly responsive collaborative agent architectures, client-side state engines, and designing tools that lower the cognitive friction of task management for neurodiverse minds.
             </p>
 
             <div>
@@ -373,7 +373,6 @@ export default function TeamPage() {
                 <span className="badge badge-effort-low" style={{ background: 'rgba(10, 132, 255, 0.08)', color: 'var(--accent-blue)', fontWeight: 600 }}>Agent Orchestration</span>
                 <span className="badge badge-effort-medium" style={{ background: 'rgba(255, 149, 0, 0.08)', color: 'var(--accent-orange)', fontWeight: 600 }}>Systems Engineering</span>
                 <span className="badge badge-effort-high" style={{ background: 'rgba(255, 95, 0, 0.08)', color: 'var(--accent-amber)', fontWeight: 600 }}>Next.js & React</span>
-                <span className="badge badge-high" style={{ fontWeight: 600 }}>Privacy Architecture</span>
               </div>
             </div>
 
@@ -461,17 +460,6 @@ export default function TeamPage() {
             gap: '32px',
             textAlign: 'left',
           }}>
-            <div>
-              <div style={{ color: 'var(--accent-blue)', marginBottom: '12px' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              </div>
-              <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '8px', color: 'var(--text-primary)' }}>Privacy by Design</h4>
-              <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                We believe student data is private. ActionPath processes all details locally inside your browser storage. No servers, no credentials, zero external databases.
-              </p>
-            </div>
             <div>
               <div style={{ color: 'var(--accent-purple)', marginBottom: '12px' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

@@ -268,7 +268,6 @@ ActionPath is built around safety-first AI design principles, prioritizing trans
 * **Human-in-the-Loop Constraint**: The system does not possess autonomous access. It never signs forms, schedules meetings, or processes payments automatically. It presents recommendations; the student must confirm, check off, or modify tasks manually.
 * **Verifiable Grounding**: Every checklist item provides direct source sentence linking. If a deadline or date is generated, the student can hover over it to see the exact sentence in the original document to check for hallucinations.
 * **Confidence Grading**: Items with low extraction confidence (under 0.70) are highlighted with red border frames and review warnings.
-* **Strict Data Privacy**: Sensitive student communications are never stored on external databases or used for training. All personal contexts, checklists, and active session histories are persisted locally in the browser's localStorage.
 
 ---
 
@@ -299,7 +298,6 @@ actionpath/
 │   ├── layout.tsx           # Global App context wrapper
 │   └── page.tsx             # Interactive dashboard and Landing UI
 ├── components/
-│   ├── AuthModal.tsx        # User authentication dialog
 │   ├── ClassroomImport.tsx  # Google Classroom dashboard controls
 │   ├── ConfidenceBadge.tsx  # Visual high/medium/review indicators
 │   ├── FeedbackModal.tsx    # Effort verification feedback prompts

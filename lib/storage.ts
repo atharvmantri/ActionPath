@@ -1,6 +1,5 @@
 // ============================================================
 // ActionPath - localStorage Helpers
-// Privacy by design: only task completion state stored, never content
 // ============================================================
 
 import { StudentContext, ActionTask, EffortFeedback } from './schema';

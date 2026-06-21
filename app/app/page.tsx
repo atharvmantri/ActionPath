@@ -32,8 +32,6 @@ import MoodCheckIn from '@/components/MoodCheckIn';
 import StreakTracker from '@/components/StreakTracker';
 import FocusTimer from '@/components/FocusTimer';
 import FeedbackModal from '@/components/FeedbackModal';
-import AuthModal from '@/components/AuthModal';
-import type { User计划Data } from '@/lib/db';
 
 type ViewMode = 'input' | 'checklist' | 'week';
 
@@ -54,82 +52,28 @@ export default function Home() {
   const [feedbackTask, setFeedbackTask] = useState<ActionTask | null>(null);
   const [highContrast, setHighContrast] = useState(false);
   const [largeText, setLargeText] = useState(false);
-  const [user, setUser] = useState<{ id: string; username: string } | null>(null);
-  const [showAuthModal, setShowAuthModal] = useState(false);
+
 
   // ---- Effects ----
   useEffect(() => {
-    // Check auth status
-    fetch('/api/auth/me')
-      .then((res) => res.json())
-      .then((resData) => {
-        if (resData.authenticated) {
-          setUser(resData.user);
-          const sTasks = resData.data.tasks || [];
-          setTasks(sTasks);
-          setCompletedIds(resData.data.completed_task_ids || []);
-          setStreak(resData.data.streak || { current: 0, lastCompletedDate: null, best: 0 });
-          
-          const sResult = resData.data.pipeline_result || null;
-          setPipelineResult(sResult);
+    // Load local state
+    setCompletedIds(loadCompletedTasks());
+    setStreak(loadStreak());
+    setMood(getTodayMood());
 
-          if (sTasks.length > 0) {
-            setViewMode('checklist');
-          }
+    const localTasks = localStorage.getItem('actionpath_tasks');
+    if (localTasks) {
+      const parsed = JSON.parse(localTasks);
+      setTasks(parsed);
+      if (parsed.length > 0) {
+        setViewMode('checklist');
+      }
+    }
+    const localResult = localStorage.getItem('actionpath_last_result');
+    if (localResult) {
+      setPipelineResult(JSON.parse(localResult));
+    }
 
-          // Write to local storage for offline use
-          localStorage.setItem('actionpath_tasks', JSON.stringify(sTasks));
-          if (sResult) {
-            localStorage.setItem('actionpath_last_result', JSON.stringify(sResult));
-          } else {
-            localStorage.removeItem('actionpath_last_result');
-          }
-          if (resData.data.mood_history) {
-            localStorage.setItem('actionpath_mood_history', JSON.stringify(resData.data.mood_history));
-            setMood(getTodayMood());
-          }
-          if (resData.data.effort_feedback) {
-            localStorage.setItem('actionpath_effort_feedback', JSON.stringify(resData.data.effort_feedback));
-          }
-        } else {
-          setCompletedIds(loadCompletedTasks());
-          setStreak(loadStreak());
-          setMood(getTodayMood());
-
-          // Load local tasks and pipeline result
-          const localTasks = localStorage.getItem('actionpath_tasks');
-          if (localTasks) {
-            const parsed = JSON.parse(localTasks);
-            setTasks(parsed);
-            if (parsed.length > 0) {
-              setViewMode('checklist');
-            }
-          }
-          const localResult = localStorage.getItem('actionpath_last_result');
-          if (localResult) {
-            setPipelineResult(JSON.parse(localResult));
-          }
-        }
-      })
-      .catch(() => {
-        setCompletedIds(loadCompletedTasks());
-        setStreak(loadStreak());
-        setMood(getTodayMood());
-
-        const localTasks = localStorage.getItem('actionpath_tasks');
-        if (localTasks) {
-          const parsed = JSON.parse(localTasks);
-          setTasks(parsed);
-          if (parsed.length > 0) {
-            setViewMode('checklist');
-          }
-        }
-        const localResult = localStorage.getItem('actionpath_last_result');
-        if (localResult) {
-          setPipelineResult(JSON.parse(localResult));
-        }
-      });
-    
     const access = loadAccessibility();
     setHighContrast(access.highContrast);
     setLargeText(access.largeText);
@@ -182,87 +126,6 @@ export default function Home() {
       localStorage.removeItem('actionpath_last_result');
     }
   }, [pipelineResult]);
-
-  // Synchronize state changes to server database when logged in (debounced by 1s)
-  useEffect(() => {
-    if (!user) return;
-
-    const timeoutId = setTimeout(() => {
-      const moodHistory = JSON.parse(localStorage.getItem('actionpath_mood_history') || '[]');
-      const effortFeedback = JSON.parse(localStorage.getItem('actionpath_effort_feedback') || '[]');
-
-      fetch('/api/tasks/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tasks,
-          completed_task_ids: completedIds,
-          streak,
-          mood_history: moodHistory,
-          effort_feedback: effortFeedback,
-          pipeline_result: pipelineResult,
-        }),
-      }).catch((err) => console.warn('Sync failed:', err));
-    }, 1000);
-
-    return () => clearTimeout(timeoutId);
-  }, [tasks, completedIds, streak, user, pipelineResult]);
-
-  const handleAuthSuccess = (authUser: { id: string; username: string }, authData?: User计划Data) => {
-    setUser(authUser);
-    if (authData) {
-      setTasks(authData.tasks || []);
-      setCompletedIds(authData.completed_task_ids || []);
-      setStreak(authData.streak || { current: 0, lastCompletedDate: null, best: 0 });
-      setPipelineResult(authData.pipeline_result || null);
-      if (authData.mood_history) {
-        localStorage.setItem('actionpath_mood_history', JSON.stringify(authData.mood_history));
-        setMood(getTodayMood());
-      }
-      if (authData.effort_feedback) {
-        localStorage.setItem('actionpath_effort_feedback', JSON.stringify(authData.effort_feedback));
-      }
-    } else {
-      // Newly registered: upload current local states to register server account
-      const moodHistory = JSON.parse(localStorage.getItem('actionpath_mood_history') || '[]');
-      const effortFeedback = JSON.parse(localStorage.getItem('actionpath_effort_feedback') || '[]');
-      
-      fetch('/api/tasks/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tasks,
-          completed_task_ids: completedIds,
-          streak,
-          mood_history: moodHistory,
-          effort_feedback: effortFeedback,
-          pipeline_result: pipelineResult,
-        }),
-      }).catch((err) => console.warn('Register sync failed:', err));
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/auth/logout', { method: 'POST' });
-      setUser(null);
-      setTasks([]);
-      setCompletedIds([]);
-      setPipelineResult(null);
-      setViewMode('input');
-      setCurrentStage(0);
-      localStorage.removeItem('actionpath_tasks');
-      localStorage.removeItem('actionpath_completed_tasks');
-      localStorage.removeItem('actionpath_streak');
-      localStorage.removeItem('actionpath_mood_history');
-      localStorage.removeItem('actionpath_last_result');
-      localStorage.removeItem('actionpath_effort_feedback');
-      setStreak({ current: 0, lastCompletedDate: null, best: 0 });
-      setMood(null);
-    } catch (err) {
-      console.warn('Logout failed:', err);
-    }
-  };
 
   // ---- Local Reminders ----
   useEffect(() => {
@@ -631,25 +494,6 @@ export default function Home() {
 
           {/* Nav */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            {user ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginRight: '6px' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
-                  {user.username}
-                </span>
-                <button onClick={handleLogout} className="btn-ghost" style={{ fontSize: '0.78rem', padding: '6px 10px' }}>
-                  Sign Out
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => setShowAuthModal(true)}
-                className="btn-secondary"
-                style={{ fontSize: '0.78rem', padding: '6px 12px', marginRight: '6px', borderColor: 'var(--accent-blue)', color: 'var(--accent-blue)', cursor: 'pointer' }}
-              >
-                Sign In
-              </button>
-            )}
             {(pipelineResult || tasks.length > 0) && (
               <>
                 <button
@@ -1013,11 +857,6 @@ export default function Home() {
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
                 <span>AI recommends. You decide and act. Always verify important deadlines directly.</span>
               </div>
-              <p style={{ marginTop: '4px' }}>
-                {user 
-                  ? `Securely saved to your account (${user.username}). Privacy by design.` 
-                  : 'No content stored on servers. Privacy by design.'}
-              </p>
             </div>
           </div>
         )}
@@ -1079,13 +918,6 @@ export default function Home() {
         )}
       </main>
 
-      {/* Auth Modal overlay */}
-      {showAuthModal && (
-        <AuthModal
-          onClose={() => setShowAuthModal(false)}
-          onSuccess={handleAuthSuccess}
-        />
-      )}
     </>
   );
 }

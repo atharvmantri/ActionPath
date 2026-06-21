@@ -44,16 +44,6 @@ export default function OnboardingDisclaimer({ onDismiss }: OnboardingDisclaimer
         </svg>
       )
     },
-    {
-      title: 'Your Privacy Matters',
-      text: 'No email content is ever stored on our servers. Everything is processed per-request and only your task completion status is saved locally in your browser.',
-      icon: (
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-        </svg>
-      )
-    },
   ];
 
   return (
